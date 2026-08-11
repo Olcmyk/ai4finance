@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { transactionsApi } from '../api/transactions';
 import type { Transaction } from '../types/transaction';
-import { Button, Card } from '../components/ui';
+import { Button } from '../components/ui';
 
 const TransactionList: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -76,77 +76,101 @@ const TransactionList: React.FC = () => {
 
   return (
     <div>
-      <div className="sm:flex sm:items-center sm:justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-beige-900">交易记录</h1>
+      <div className="sm:flex sm:items-center sm:justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-black text-gray-900 mb-2">交易记录</h1>
+          <p className="text-gray-600 text-lg">查看和管理您的所有交易</p>
+        </div>
         <Link to="/app/transactions/new">
-          <Button className="mt-4 sm:mt-0">
-            + 新建交易
+          <Button className="mt-4 sm:mt-0 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <span className="text-xl mr-2">+</span> 新建交易
           </Button>
         </Link>
       </div>
 
       {transactions.length === 0 ? (
-        <Card className="text-center py-12">
-          <span className="text-6xl block mb-4">📝</span>
-          <p className="text-beige-600 mb-4">暂无交易记录</p>
-          <Link to="/app/transactions/new">
-            <Button variant="primary">添加第一笔交易</Button>
-          </Link>
-        </Card>
+        <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 rounded-3xl shadow-xl p-20 text-center border-2 border-purple-100">
+          <div className="relative z-10">
+            <div className="inline-block bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-10 mb-6 shadow-glow-purple">
+              <span className="text-8xl">📝</span>
+            </div>
+            <h2 className="text-3xl font-black text-gray-900 mb-4">暂无交易记录</h2>
+            <p className="text-gray-600 mb-8 text-lg">开始记录您的第一笔交易</p>
+            <Link to="/app/transactions/new">
+              <Button variant="primary" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl text-lg">
+                <span className="text-xl mr-2">+</span> 添加第一笔交易
+              </Button>
+            </Link>
+          </div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200 opacity-20 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-pink-200 opacity-20 rounded-full -ml-24 -mb-24"></div>
+        </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {Object.entries(groupedTransactions).map(([date, items]) => (
-            <Card key={date} padding="none">
-              <div className="bg-beige-100 px-6 py-3 rounded-t-2xl">
-                <h3 className="text-sm font-semibold text-beige-800">{date}</h3>
+            <div key={date} className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-gray-100">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">📅</span>
+                  <h3 className="text-lg font-black text-white">{date}</h3>
+                </div>
               </div>
-              <div className="divide-y divide-beige-200">
-                {items.map((transaction) => (
-                  <div key={transaction.id} className="px-6 py-4 hover:bg-beige-50 transition-colors duration-200">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <p className="text-sm font-semibold text-beige-900">
-                            {transaction.category}
-                          </p>
-                          <div className="text-sm">
-                            {formatAmount(transaction.amount)}
+              <div className="divide-y divide-gray-100">
+                {items.map((transaction) => {
+                  const isExpense = parseFloat(transaction.amount) < 0;
+                  return (
+                    <div key={transaction.id} className="px-8 py-6 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 transition-all duration-200 group">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1 flex items-center space-x-4">
+                          <div className={`${isExpense ? 'bg-gradient-to-br from-red-500 to-rose-500' : 'bg-gradient-to-br from-emerald-500 to-green-500'} rounded-2xl p-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                            <span className="text-3xl">{isExpense ? '💸' : '💰'}</span>
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <p className="text-lg font-bold text-gray-900">
+                                {transaction.category}
+                              </p>
+                              <div className={`text-2xl font-black ${isExpense ? 'text-red-600' : 'text-emerald-600'}`}>
+                                {formatAmount(transaction.amount)}
+                              </div>
+                            </div>
+                            {transaction.description && (
+                              <p className="text-base text-gray-600">
+                                {transaction.description}
+                              </p>
+                            )}
                           </div>
                         </div>
-                        {transaction.description && (
-                          <p className="text-sm text-beige-600">
-                            {transaction.description}
-                          </p>
-                        )}
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <button
-                          onClick={() => handleDelete(transaction.id)}
-                          className="text-red-600 hover:text-red-800 text-sm font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all duration-200"
-                        >
-                          删除
-                        </button>
+                        <div className="ml-6 flex-shrink-0">
+                          <button
+                            onClick={() => handleDelete(transaction.id)}
+                            className="text-red-600 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 text-base font-bold px-5 py-3 rounded-2xl hover:shadow-xl transition-all duration-300 border-2 border-red-200 hover:border-transparent"
+                          >
+                            🗑️ 删除
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       )}
 
       {total > 20 && (
-        <div className="mt-6 flex justify-center items-center space-x-4">
+        <div className="mt-8 flex justify-center items-center space-x-6 bg-white rounded-3xl shadow-xl p-6 border-2 border-gray-100">
           <Button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
             variant="outline"
             size="sm"
+            className="px-6 py-3 font-bold text-base rounded-2xl disabled:opacity-50"
           >
-            上一页
+            ← 上一页
           </Button>
-          <span className="px-4 py-2 text-sm text-beige-700 font-medium">
+          <span className="px-6 py-3 text-base font-bold text-gray-900 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200">
             第 {page} 页 / 共 {Math.ceil(total / 20)} 页
           </span>
           <Button
@@ -154,8 +178,9 @@ const TransactionList: React.FC = () => {
             disabled={page >= Math.ceil(total / 20)}
             variant="outline"
             size="sm"
+            className="px-6 py-3 font-bold text-base rounded-2xl disabled:opacity-50"
           >
-            下一页
+            下一页 →
           </Button>
         </div>
       )}

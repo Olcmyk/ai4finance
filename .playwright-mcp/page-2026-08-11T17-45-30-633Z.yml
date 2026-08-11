@@ -1,0 +1,94 @@
+- generic [ref=f46e3]:
+  - navigation [ref=f46e4]:
+    - generic [ref=f46e6]:
+      - generic [ref=f46e7]:
+        - generic [ref=f46e8]: 💰 财务顾问
+        - generic [ref=f46e10]:
+          - link "概览" [ref=f46e11] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f46e12] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f46e13] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f46e14]:
+        - text: Demo User
+        - button "退出" [ref=f46e15]
+  - main [ref=f46e16]:
+    - generic [ref=f46e18]:
+      - generic [ref=f46e19]:
+        - heading "交易记录" [level=1] [ref=f46e20]
+        - link [ref=f46e21] [cursor=pointer]:
+          - /url: /app/transactions/new
+          - button "+ 新建交易" [ref=f46e22]
+      - generic [ref=f46e23]:
+        - generic [ref=f46e24]:
+          - heading "2026-08-11" [level=3] [ref=f46e26]
+          - generic [ref=f46e29]:
+            - generic [ref=f46e30]:
+              - generic [ref=f46e31]:
+                - paragraph [ref=f46e32]: 餐饮
+                - generic [ref=f46e33]: 💸¥68.00
+              - paragraph [ref=f46e35]: 晚餐
+            - button "删除" [ref=f46e37]
+        - generic [ref=f46e38]:
+          - heading "2026-08-10" [level=3] [ref=f46e40]
+          - generic [ref=f46e43]:
+            - generic [ref=f46e44]:
+              - generic [ref=f46e45]:
+                - paragraph [ref=f46e46]: 交通
+                - generic [ref=f46e47]: 💸¥120.50
+              - paragraph [ref=f46e49]: 打车去机场
+            - button "删除" [ref=f46e51]
+        - generic [ref=f46e52]:
+          - heading "2026-08-09" [level=3] [ref=f46e54]
+          - generic [ref=f46e57]:
+            - generic [ref=f46e58]:
+              - generic [ref=f46e59]:
+                - paragraph [ref=f46e60]: 餐饮
+                - generic [ref=f46e61]: 💸¥35.00
+              - paragraph [ref=f46e63]: 星巴克咖啡
+            - button "删除" [ref=f46e65]
+        - generic [ref=f46e66]:
+          - heading "2026-08-08" [level=3] [ref=f46e68]
+          - generic [ref=f46e71]:
+            - generic [ref=f46e72]:
+              - generic [ref=f46e73]:
+                - paragraph [ref=f46e74]: 购物
+                - generic [ref=f46e75]: 💸¥299.00
+              - paragraph [ref=f46e77]: 购买T恤
+            - button "删除" [ref=f46e79]
+        - generic [ref=f46e80]:
+          - heading "2026-08-07" [level=3] [ref=f46e82]
+          - generic [ref=f46e85]:
+            - generic [ref=f46e86]:
+              - generic [ref=f46e87]:
+                - paragraph [ref=f46e88]: 娱乐
+                - generic [ref=f46e89]: 💸¥85.00
+              - paragraph [ref=f46e91]: 电影票
+            - button "删除" [ref=f46e93]
+        - generic [ref=f46e94]:
+          - heading "2026-08-05" [level=3] [ref=f46e96]
+          - generic [ref=f46e99]:
+            - generic [ref=f46e100]:
+              - generic [ref=f46e101]:
+                - paragraph [ref=f46e102]: 通讯
+                - generic [ref=f46e103]: 💸¥150.00
+              - paragraph [ref=f46e105]: 话费充值
+            - button "删除" [ref=f46e107]
+        - generic [ref=f46e108]:
+          - heading "2026-08-01" [level=3] [ref=f46e110]
+          - generic [ref=f46e111]:
+            - generic [ref=f46e113]:
+              - generic [ref=f46e114]:
+                - generic [ref=f46e115]:
+                  - paragraph [ref=f46e116]: 其他
+                  - generic [ref=f46e117]: 💰¥5000.00
+                - paragraph [ref=f46e119]: 工资
+              - button "删除" [ref=f46e121]
+            - generic [ref=f46e123]:
+              - generic [ref=f46e124]:
+                - generic [ref=f46e125]:
+                  - paragraph [ref=f46e126]: 住房
+                  - generic [ref=f46e127]: 💸¥2500.00
+                - paragraph [ref=f46e129]: 房租
+              - button "删除" [ref=f46e131]

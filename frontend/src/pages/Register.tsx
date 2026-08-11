@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Button, Card, Input } from '../components/ui';
+import { Button } from '../components/ui';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -29,63 +29,80 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-beige-50 via-beige-100 to-beige-200 flex items-center justify-center px-4 py-12">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-300 opacity-20 rounded-full blur-3xl -mr-48 -mt-48"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-300 opacity-20 rounded-full blur-3xl -ml-48 -mb-48"></div>
+
+      <div className="max-w-md w-full space-y-8 relative z-10">
         <div className="text-center">
-          <div className="inline-block p-4 bg-beige-500 rounded-3xl shadow-soft-lg mb-4">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-            </svg>
+          <div className="inline-block p-6 bg-gradient-to-br from-emerald-600 to-green-600 rounded-3xl shadow-glow-green mb-6 transform hover:scale-110 transition-transform duration-300">
+            <span className="text-6xl">✨</span>
           </div>
-          <h2 className="text-4xl font-bold text-beige-900 mb-2">
+          <h2 className="text-5xl font-black text-gray-900 mb-3">
             创建新账户
           </h2>
-          <p className="text-beige-600 text-lg">
-            开始使用 AI 个人财务顾问
+          <p className="text-gray-600 text-xl font-semibold">
+            开始使用 AI 财务顾问，智能管理财富
           </p>
         </div>
 
-        <Card className="backdrop-blur-sm bg-white/80">
+        <div className="backdrop-blur-sm bg-white/90 rounded-3xl shadow-2xl border-2 border-white p-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 text-red-800 px-4 py-3 rounded-2xl">
-                {error}
+              <div className="bg-gradient-to-r from-red-50 to-rose-50 border-2 border-red-200 text-red-800 px-6 py-4 rounded-2xl flex items-center space-x-3 shadow-lg">
+                <span className="text-2xl">⚠️</span>
+                <span className="font-semibold">{error}</span>
               </div>
             )}
 
-            <Input
-              label="用户名"
-              type="text"
-              required
-              fullWidth
-              placeholder="张三"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-
-            <Input
-              label="邮箱"
-              type="email"
-              required
-              fullWidth
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div>
+              <label htmlFor="username" className="block text-base font-bold text-gray-900 mb-3">
+                用户名
+              </label>
+              <input
+                id="username"
+                type="text"
+                required
+                placeholder="张三"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="block w-full px-6 py-4 border-2 border-gray-300 rounded-2xl shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 bg-white text-gray-900 text-lg"
+              />
+            </div>
 
             <div>
-              <Input
-                label="密码"
+              <label htmlFor="email" className="block text-base font-bold text-gray-900 mb-3">
+                邮箱
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full px-6 py-4 border-2 border-gray-300 rounded-2xl shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 bg-white text-gray-900 text-lg"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-base font-bold text-gray-900 mb-3">
+                密码
+              </label>
+              <input
+                id="password"
                 type="password"
                 required
-                fullWidth
                 placeholder="至少8个字符"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength={8}
+                className="block w-full px-6 py-4 border-2 border-gray-300 rounded-2xl shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 bg-white text-gray-900 text-lg"
               />
-              <p className="mt-2 text-sm text-beige-600">
-                密码必须至少8个字符，包含大小写字母和数字
+              <p className="mt-3 text-sm text-gray-600 font-medium flex items-center space-x-2">
+                <span>🔒</span>
+                <span>密码必须至少8个字符，包含大小写字母和数字</span>
               </p>
             </div>
 
@@ -94,20 +111,25 @@ const Register: React.FC = () => {
               disabled={loading}
               fullWidth
               size="lg"
+              className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-bold px-8 py-5 text-xl rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              {loading ? '注册中...' : '注册'}
+              {loading ? '注册中...' : '🚀 立即注册'}
             </Button>
 
-            <div className="text-center">
+            <div className="text-center pt-4">
               <Link
                 to="/login"
-                className="text-beige-700 hover:text-beige-900 transition-colors duration-200 font-medium"
+                className="text-emerald-700 hover:text-emerald-900 transition-colors duration-200 font-bold text-lg hover:underline"
               >
-                已有账户？立即登录
+                已有账户？立即登录 →
               </Link>
             </div>
           </form>
-        </Card>
+        </div>
+
+        <p className="text-center text-gray-600 text-sm font-medium">
+          💡 免费使用，随时随地管理您的财务
+        </p>
       </div>
     </div>
   );
