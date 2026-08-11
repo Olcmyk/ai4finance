@@ -1,0 +1,17 @@
+- generic [ref=f34e3]:
+  - navigation [ref=f34e4]:
+    - generic [ref=f34e6]:
+      - generic [ref=f34e7]:
+        - generic [ref=f34e8]: 💰 财务顾问
+        - generic [ref=f34e10]:
+          - link "概览" [ref=f34e11] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f34e12] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f34e13] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f34e14]:
+        - text: Demo User
+        - button "退出" [ref=f34e15]
+  - main [ref=f34e16]:
+    - paragraph [ref=f34e20]: 加载中...

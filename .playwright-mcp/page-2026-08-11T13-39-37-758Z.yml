@@ -1,0 +1,43 @@
+- generic [ref=f7e5]:
+  - navigation [ref=f7e6]:
+    - generic [ref=f7e8]:
+      - generic [ref=f7e9]:
+        - generic [ref=f7e10]: 💰 财务顾问
+        - generic [ref=f7e11]:
+          - link "概览" [ref=f7e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f7e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f7e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f7e15]:
+        - text: 测试用户
+        - button "退出" [ref=f7e16]
+  - main [ref=f7e17]:
+    - generic [ref=f7e19]:
+      - heading "新建交易" [level=1] [ref=f7e20]
+      - generic [ref=f7e21]:
+        - generic [ref=f7e40]: "Failed to parse transaction: AsyncCompletions.create() got an unexpected keyword argument 'thinking'"
+        - generic [ref=f7e22]:
+          - text: 输入方式
+          - generic [ref=f7e23]:
+            - generic [ref=f7e24]:
+              - radio "AI 智能输入" [checked] [ref=f7e25]
+              - text: AI 智能输入
+            - generic [ref=f7e26]:
+              - radio "手动输入" [ref=f7e27]
+              - text: 手动输入
+        - generic [ref=f7e28]:
+          - generic [ref=f7e29]:
+            - text: 描述你的交易
+            - textbox "描述你的交易" [ref=f7e30]:
+              - /placeholder: 例如：今天午餐花了50块，或者收到工资5000元
+              - text: 今天午餐花了50块
+          - generic [ref=f7e31]:
+            - text: 快速示例
+            - generic [ref=f7e32]:
+              - button "今天午餐花了50块" [ref=f7e33]
+              - button "昨天买咖啡花了35元" [ref=f7e34]
+              - button "收到工资5000元" [ref=f7e35]
+          - button "AI 解析" [ref=f7e37]
+        - button "取消" [ref=f7e39]

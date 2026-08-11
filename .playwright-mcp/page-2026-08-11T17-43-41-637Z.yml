@@ -1,0 +1,12 @@
+- generic [ref=f37e3]:
+  - generic [ref=f37e4]: "[plugin:vite:oxc] Transform failed with 2 errors: [PARSE_ERROR] Expected corresponding JSX closing tag for 'Card'. ╭─[ src/pages/NewTransaction.tsx:353:7 ] │ 119 │ <Card> │ ──┬─ │ ╰─── Opened here │ 353 │ </div> │ ─┬─ │ ╰─── Expected `</Card>` ─────╯ [PARSE_ERROR] Unexpected token. Did you mean `{'}'}` or `&rbrace;`? ╭─[ src/pages/NewTransaction.tsx:355:1 ] │ 355 │ }; │ │ │ ╰─ ─────╯"
+  - generic [ref=f37e5]: /Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/src/pages/NewTransaction.tsx
+  - generic [ref=f37e6]: at transformWithOxc (file:///Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/node_modules/vite/dist/node/chunks/node.js:4097:19) at TransformPluginContext.transform (file:///Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/node_modules/vite/dist/node/chunks/node.js:4168:26) at EnvironmentPluginContainer.transform (file:///Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/node_modules/vite/dist/node/chunks/node.js:30851:51) at async loadAndTransform (file:///Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/node_modules/vite/dist/node/chunks/node.js:20619:26) at async viteTransformMiddleware (file:///Users/booffaoex/code/formianshi/.claude/worktrees/ai-advisor-complete/frontend/node_modules/vite/dist/node/chunks/node.js:25142:20)
+  - generic [ref=f37e7]:
+    - text: Click outside, press Esc key, or fix the code to dismiss.You can also disable this overlay by setting
+    - code [ref=f37e8]: server.hmr.overlay
+    - text: to
+    - code [ref=f37e9]: "false"
+    - text: in
+    - code [ref=f37e10]: vite.config.ts
+    - text: .

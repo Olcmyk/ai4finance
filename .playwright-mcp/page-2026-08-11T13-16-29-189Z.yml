@@ -1,0 +1,17 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "AI 个人财务顾问" [level=2] [ref=e6]
+    - paragraph [ref=e7]: 登录您的账户
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - text: 邮箱
+        - textbox "邮箱" [ref=e11]:
+          - /placeholder: your@email.com
+      - generic [ref=e12]:
+        - text: 密码
+        - textbox "密码" [ref=e13]:
+          - /placeholder: ••••••••
+    - button "登录" [ref=e15]
+    - link "还没有账户？立即注册" [ref=e17] [cursor=pointer]:
+      - /url: /register

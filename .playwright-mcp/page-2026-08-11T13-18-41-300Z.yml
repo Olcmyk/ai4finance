@@ -1,0 +1,66 @@
+- generic [ref=f1e18]:
+  - navigation [ref=f1e19]:
+    - generic [ref=f1e21]:
+      - generic [ref=f1e22]:
+        - generic [ref=f1e23]: 💰 财务顾问
+        - generic [ref=f1e24]:
+          - link "概览" [ref=f1e25] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f1e26] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f1e27] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f1e28]:
+        - text: 测试用户
+        - button "退出" [ref=f1e29]
+  - main [ref=f1e30]:
+    - generic [ref=f1e32]:
+      - generic [ref=f1e33]:
+        - heading "财务概览" [level=1] [ref=f1e34]
+        - link "+ 新建交易" [ref=f1e35] [cursor=pointer]:
+          - /url: /app/transactions/new
+      - generic [ref=f1e36]:
+        - generic [ref=f1e37]:
+          - heading "AI 财务洞察" [level=2] [ref=f1e38]
+          - button "刷新" [ref=f1e39]
+        - generic [ref=f1e40]:
+          - generic [ref=f1e42]:
+            - generic [ref=f1e43]: ⚠️
+            - generic [ref=f1e44]:
+              - heading "支出集中提醒" [level=3] [ref=f1e45]
+              - paragraph [ref=f1e46]: 您在餐饮类别的支出占总支出的100.0%（¥150.00），建议适当分散开销。
+          - generic [ref=f1e48]:
+            - generic [ref=f1e49]: 💡
+            - generic [ref=f1e50]:
+              - heading "节省建议" [level=3] [ref=f1e51]
+              - paragraph [ref=f1e52]: 您在餐饮类别的支出较高（占总支出的100.0%）。减少10%可节省约¥15.00元。
+      - generic [ref=f1e53]:
+        - generic [ref=f1e57]:
+          - term [ref=f1e58]: 本月收入
+          - definition [ref=f1e59]: ¥0.00
+        - generic [ref=f1e63]:
+          - term [ref=f1e64]: 本月支出
+          - definition [ref=f1e65]: ¥150.00
+        - generic [ref=f1e69]:
+          - term [ref=f1e70]: 结余
+          - definition [ref=f1e71]: ¥-150.00
+      - generic [ref=f1e73]:
+        - heading "支出类别" [level=3] [ref=f1e74]
+        - generic [ref=f1e77]:
+          - text: 餐饮
+          - generic [ref=f1e78]: ¥150.00 (100%)
+      - generic [ref=f1e79]:
+        - heading "快速操作" [level=3] [ref=f1e80]
+        - generic [ref=f1e81]:
+          - link [ref=f1e82] [cursor=pointer]:
+            - /url: /app/transactions
+            - text: 📝
+            - generic [ref=f1e83]:
+              - paragraph [ref=f1e84]: 查看所有交易
+              - paragraph [ref=f1e85]: 浏览完整交易记录
+          - link [ref=f1e86] [cursor=pointer]:
+            - /url: /app/transactions/new
+            - text: ➕
+            - generic [ref=f1e87]:
+              - paragraph [ref=f1e88]: 添加新交易
+              - paragraph [ref=f1e89]: 记录一笔收入或支出

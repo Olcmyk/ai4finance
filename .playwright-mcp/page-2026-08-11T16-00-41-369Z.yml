@@ -1,0 +1,36 @@
+- generic [ref=f11e3]:
+  - navigation [ref=f11e4]:
+    - generic [ref=f11e6]:
+      - generic [ref=f11e7]:
+        - generic [ref=f11e8]: 💰 财务顾问
+        - generic [ref=f11e9]:
+          - link "概览" [ref=f11e10] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f11e11] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f11e12] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f11e13]:
+        - text: 测试用户
+        - button "退出" [ref=f11e14]
+  - main [ref=f11e15]:
+    - generic [ref=f11e17]:
+      - generic [ref=f11e18]:
+        - generic [ref=f11e19]:
+          - heading "🤖AI 财务顾问" [level=1] [ref=f11e20]
+          - paragraph [ref=f11e21]: 智能分析您的财务状况，提供个性化建议
+        - generic [ref=f11e22]:
+          - generic [ref=f11e43]: 已连接
+          - button "新对话" [ref=f11e24]
+      - generic [ref=f11e25]:
+        - generic [ref=f11e46]:
+          - generic [ref=f11e47]:
+            - paragraph [ref=f11e48]: 我今天的支出是多少？
+            - paragraph [ref=f11e49]: 2026-08-11T16:00:25.886Z
+          - text: 👤
+        - generic [ref=f11e50]: 🤖
+      - generic [ref=f11e37]:
+        - generic [ref=f11e38]:
+          - textbox "输入您的问题... (Enter 发送, Shift+Enter 换行)" [ref=f11e39]
+          - button "发送" [disabled] [ref=f11e40]
+        - paragraph [ref=f11e41]: AI 回复基于您的交易数据分析，仅供参考

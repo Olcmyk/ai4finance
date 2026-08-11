@@ -1,0 +1,43 @@
+- generic [ref=f6e5]:
+  - navigation [ref=f6e6]:
+    - generic [ref=f6e8]:
+      - generic [ref=f6e9]:
+        - generic [ref=f6e10]: 💰 财务顾问
+        - generic [ref=f6e11]:
+          - link "概览" [ref=f6e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f6e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f6e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f6e15]:
+        - text: 测试用户
+        - button "退出" [ref=f6e16]
+  - main [ref=f6e17]:
+    - generic [ref=f6e19]:
+      - heading "新建交易" [level=1] [ref=f6e20]
+      - generic [ref=f6e21]:
+        - generic [ref=f6e40]: "Failed to parse transaction: Error code: 400 - {'error': {'message': 'Thinking mode does not support this tool_choice', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}"
+        - generic [ref=f6e22]:
+          - text: 输入方式
+          - generic [ref=f6e23]:
+            - generic [ref=f6e24]:
+              - radio "AI 智能输入" [checked] [ref=f6e25]
+              - text: AI 智能输入
+            - generic [ref=f6e26]:
+              - radio "手动输入" [ref=f6e27]
+              - text: 手动输入
+        - generic [ref=f6e28]:
+          - generic [ref=f6e29]:
+            - text: 描述你的交易
+            - textbox "描述你的交易" [ref=f6e30]:
+              - /placeholder: 例如：今天午餐花了50块，或者收到工资5000元
+              - text: 今天午餐花了50块
+          - generic [ref=f6e31]:
+            - text: 快速示例
+            - generic [ref=f6e32]:
+              - button "今天午餐花了50块" [ref=f6e33]
+              - button "昨天买咖啡花了35元" [ref=f6e34]
+              - button "收到工资5000元" [ref=f6e35]
+          - button "AI 解析" [ref=f6e37]
+        - button "取消" [ref=f6e39]

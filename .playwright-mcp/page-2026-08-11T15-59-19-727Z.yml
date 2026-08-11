@@ -1,0 +1,65 @@
+- generic [ref=f10e5]:
+  - navigation [ref=f10e6]:
+    - generic [ref=f10e8]:
+      - generic [ref=f10e9]:
+        - generic [ref=f10e10]: 💰 财务顾问
+        - generic [ref=f10e11]:
+          - link "概览" [ref=f10e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f10e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f10e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f10e15]:
+        - text: 测试用户
+        - button "退出" [ref=f10e16]
+  - main [ref=f10e17]:
+    - generic [ref=f10e19]:
+      - heading "新建交易" [level=1] [ref=f10e20]
+      - generic [ref=f10e21]:
+        - generic [ref=f10e22]:
+          - text: 输入方式
+          - generic [ref=f10e23]:
+            - generic [ref=f10e24]:
+              - radio "AI 智能输入" [ref=f10e25]
+              - text: AI 智能输入
+            - generic [ref=f10e26]:
+              - radio "手动输入" [checked] [ref=f10e27]
+              - text: 手动输入
+        - generic [ref=f10e40]:
+          - generic [ref=f10e41]: AI 已为你填充表单，你可以继续编辑后保存
+          - generic [ref=f10e42]:
+            - text: 交易类型
+            - generic [ref=f10e43]:
+              - generic [ref=f10e44]:
+                - radio "支出" [checked] [ref=f10e45]
+                - text: 支出
+              - generic [ref=f10e46]:
+                - radio "收入" [ref=f10e47]
+                - text: 收入
+          - generic [ref=f10e48]:
+            - text: 金额（元）
+            - spinbutton "金额（元）" [ref=f10e49]: "50"
+          - generic [ref=f10e50]:
+            - text: 类别
+            - combobox "类别" [ref=f10e51]:
+              - option "🍔 餐饮" [selected]
+              - option "🚇 交通"
+              - option "🛍️ 购物"
+              - option "🎮 娱乐"
+              - option "🏠 住房"
+              - option "💊 医疗"
+              - option "📚 教育"
+              - option "📱 通讯"
+              - option "📦 其他"
+          - generic [ref=f10e52]:
+            - text: 日期
+            - textbox "日期" [ref=f10e53]: 2026-08-11
+          - generic [ref=f10e54]:
+            - text: 备注（可选）
+            - textbox "备注（可选）" [ref=f10e55]:
+              - /placeholder: 添加备注...
+              - text: 午餐
+        - generic [ref=f10e38]:
+          - button "取消" [ref=f10e39]
+          - button "保存" [ref=f10e56]

@@ -1,0 +1,40 @@
+- generic [ref=f4e5]:
+  - navigation [ref=f4e6]:
+    - generic [ref=f4e8]:
+      - generic [ref=f4e9]:
+        - generic [ref=f4e10]: 💰 财务顾问
+        - generic [ref=f4e11]:
+          - link "概览" [ref=f4e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f4e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f4e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f4e15]:
+        - text: 测试用户
+        - button "退出" [ref=f4e16]
+  - main [ref=f4e17]:
+    - generic [ref=f4e19]:
+      - generic [ref=f4e20]:
+        - generic [ref=f4e21]:
+          - heading "🤖AI 财务顾问" [level=1] [ref=f4e22]
+          - paragraph [ref=f4e23]: 智能分析您的财务状况，提供个性化建议
+        - generic [ref=f4e24]:
+          - generic [ref=f4e44]: 已连接
+          - button "新对话" [ref=f4e26]
+      - generic [ref=f4e28]:
+        - generic [ref=f4e29]: 💬
+        - heading "开始与 AI 顾问对话" [level=3] [ref=f4e30]
+        - paragraph [ref=f4e31]: 提出您的财务问题，我会为您分析解答
+        - generic [ref=f4e32]:
+          - paragraph [ref=f4e33]: 试试这些问题：
+          - generic [ref=f4e34]:
+            - button "我这个月的支出情况如何？" [ref=f4e35]
+            - button "帮我分析一下我的消费习惯" [ref=f4e36]
+            - button "给我一些理财建议" [ref=f4e37]
+            - button "我在哪些类别花费最多？" [ref=f4e38]
+      - generic [ref=f4e39]:
+        - generic [ref=f4e40]:
+          - textbox "输入您的问题... (Enter 发送, Shift+Enter 换行)" [active] [ref=f4e41]: 我这个月的支出情况如何？
+          - button "发送" [ref=f4e42]
+        - paragraph [ref=f4e43]: AI 回复基于您的交易数据分析，仅供参考

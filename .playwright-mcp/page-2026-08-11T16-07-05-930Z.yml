@@ -1,0 +1,69 @@
+- generic [ref=f13e5]:
+  - navigation [ref=f13e6]:
+    - generic [ref=f13e8]:
+      - generic [ref=f13e9]:
+        - generic [ref=f13e10]: 💰 财务顾问
+        - generic [ref=f13e11]:
+          - link "概览" [ref=f13e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f13e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f13e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f13e15]:
+        - text: 测试用户
+        - button "退出" [ref=f13e16]
+  - main [ref=f13e17]:
+    - generic [ref=f13e19]:
+      - generic [ref=f13e20]:
+        - generic [ref=f13e21]:
+          - heading "🤖AI 财务顾问" [level=1] [ref=f13e22]
+          - paragraph [ref=f13e23]: 智能分析您的财务状况，提供个性化建议
+        - generic [ref=f13e24]:
+          - generic [ref=f13e55]: 已连接
+          - button "新对话" [ref=f13e26]
+      - generic [ref=f13e27]:
+        - generic [ref=f13e48]:
+          - generic [ref=f13e49]:
+            - paragraph [ref=f13e50]: 我这个月的支出情况如何？
+            - paragraph [ref=f13e51]: 2026-08-11T16:06:48.897Z
+          - text: 👤
+        - generic [ref=f13e58]:
+          - text: 🤖
+          - generic [ref=f13e59]:
+            - generic [ref=f13e60]:
+              - paragraph [ref=f13e61]: 根据您的数据，本月（2026年8月）支出情况如下：
+              - list [ref=f13e62]:
+                - listitem [ref=f13e63]:
+                  - strong [ref=f13e64]: 总支出
+                  - text: ：¥200.00
+                - listitem [ref=f13e65]:
+                  - strong [ref=f13e66]: 支出类别
+                  - text: ：全部为餐饮（¥200.00）
+                - listitem [ref=f13e67]:
+                  - strong [ref=f13e68]: 交易笔数
+                  - text: ：2笔，均为午餐（8月11日 ¥150 + ¥50）
+              - paragraph [ref=f13e69]:
+                - text: 由于本月
+                - strong [ref=f13e70]: 总收入为 ¥0
+                - text: ，目前结余为
+                - strong [ref=f13e71]: "-¥200"
+                - text: ，属于支出大于收入的状态。
+              - paragraph [ref=f13e72]: 建议：
+              - list [ref=f13e73]:
+                - listitem [ref=f13e74]:
+                  - strong [ref=f13e75]: 关注餐饮开销
+                  - text: ：两笔午餐人均消费偏高，可尝试选择更经济的用餐方式，或提前规划一周餐食。
+                - listitem [ref=f13e76]:
+                  - strong [ref=f13e77]: 增加收入来源
+                  - text: ：如果暂无工资或经营收入，建议先明确收入情况，避免持续赤字。
+                - listitem [ref=f13e78]:
+                  - strong [ref=f13e79]: 及时记账
+                  - text: ：目前只有2笔记录，建议把每一笔支出都记下来，才能更准确控制预算。
+              - paragraph [ref=f13e80]: 如果这是短期状态，下月有收入进账，问题不大；但若持续多个月入不敷出，建议重新调整消费习惯和财务计划。
+            - paragraph [ref=f13e81]: 2026-08-11T16:06:53.523Z
+      - generic [ref=f13e39]:
+        - generic [ref=f13e40]:
+          - textbox "输入您的问题... (Enter 发送, Shift+Enter 换行)" [ref=f13e41]
+          - button "发送" [disabled] [ref=f13e42]
+        - paragraph [ref=f13e43]: AI 回复基于您的交易数据分析，仅供参考

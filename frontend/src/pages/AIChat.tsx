@@ -204,21 +204,21 @@ const AIChat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-12rem)] bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-3xl shadow-soft-lg border-2 border-beige-200 overflow-hidden">
       {/* Header */}
-      <div className="bg-white shadow-sm rounded-t-lg px-6 py-4 flex justify-between items-center">
+      <div className="bg-gradient-to-r from-beige-50 to-beige-100 border-b-2 border-beige-200 px-6 py-5 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 flex items-center">
-            <span className="text-3xl mr-2">🤖</span>
+          <h1 className="text-3xl font-bold text-beige-900 flex items-center">
+            <span className="text-4xl mr-3">🤖</span>
             AI 财务顾问
           </h1>
-          <p className="text-sm text-gray-500 mt-1">智能分析您的财务状况，提供个性化建议</p>
+          <p className="text-sm text-beige-600 mt-1">智能分析您的财务状况，提供个性化建议</p>
         </div>
         <div className="flex items-center space-x-4">
           <StatusIndicator />
           <button
             onClick={handleNewSession}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+            className="px-4 py-2 text-sm font-medium text-beige-700 bg-white hover:bg-beige-50 rounded-xl border-2 border-beige-300 transition-all shadow-soft"
           >
             新对话
           </button>
@@ -226,23 +226,25 @@ const AIChat: React.FC = () => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-white">
+      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 bg-beige-50">
         {messages.length === 0 && !isTyping && (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="text-6xl mb-4">💬</div>
-            <h3 className="text-xl font-medium text-gray-900 mb-2">开始与 AI 顾问对话</h3>
-            <p className="text-gray-500 mb-6">提出您的财务问题，我会为您分析解答</p>
+            <div className="bg-gradient-to-br from-beige-100 to-beige-200 p-6 rounded-3xl mb-6">
+              <span className="text-7xl">💬</span>
+            </div>
+            <h3 className="text-2xl font-bold text-beige-900 mb-3">开始与 AI 顾问对话</h3>
+            <p className="text-beige-600 mb-8 max-w-md">提出您的财务问题，我会为您分析解答</p>
 
             <div className="w-full max-w-2xl">
-              <p className="text-sm font-medium text-gray-700 mb-3">试试这些问题：</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <p className="text-sm font-semibold text-beige-700 mb-4">试试这些问题：</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {exampleQuestions.map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleExampleClick(question)}
-                    className="p-4 text-left bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 border border-blue-200 rounded-lg transition-all transform hover:scale-105 shadow-sm"
+                    className="p-5 text-left bg-white hover:bg-gradient-to-br hover:from-beige-50 hover:to-beige-100 border-2 border-beige-200 hover:border-beige-400 rounded-2xl transition-all transform hover:scale-105 shadow-soft"
                   >
-                    <span className="text-blue-700">{question}</span>
+                    <span className="text-beige-800 font-medium">{question}</span>
                   </button>
                 ))}
               </div>
@@ -251,11 +253,11 @@ const AIChat: React.FC = () => {
         )}
 
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded flex justify-between items-center">
+          <div className="mb-4 bg-red-50 border-2 border-red-200 text-red-800 px-5 py-4 rounded-2xl flex justify-between items-center shadow-soft">
             <span>{error}</span>
             <button
               onClick={() => setError('')}
-              className="text-red-600 hover:text-red-800 font-bold"
+              className="text-red-600 hover:text-red-800 font-bold text-xl"
             >
               ×
             </button>
@@ -268,34 +270,34 @@ const AIChat: React.FC = () => {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-3xl px-4 py-3 rounded-lg shadow-sm ${
+              className={`max-w-3xl px-5 py-4 rounded-2xl shadow-soft ${
                 message.role === 'user'
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white'
-                  : 'bg-gray-100 text-gray-900'
+                  ? 'bg-gradient-to-br from-beige-500 to-beige-600 text-white'
+                  : 'bg-white text-beige-900 border-2 border-beige-200'
               }`}
             >
-              <div className="flex items-start space-x-2">
+              <div className="flex items-start space-x-3">
                 {message.role === 'assistant' && (
-                  <span className="text-2xl flex-shrink-0">🤖</span>
+                  <span className="text-3xl flex-shrink-0">🤖</span>
                 )}
                 <div className="flex-1">
                   {message.role === 'user' ? (
-                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                    <p className="whitespace-pre-wrap break-words font-medium">{message.content}</p>
                   ) : (
-                    <div className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-ul:text-gray-900 prose-ol:text-gray-900">
+                    <div className="prose prose-sm max-w-none">
                       <ReactMarkdown>{message.content}</ReactMarkdown>
                     </div>
                   )}
                   <p
                     className={`text-xs mt-2 ${
-                      message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                      message.role === 'user' ? 'text-beige-100' : 'text-beige-500'
                     }`}
                   >
-                    {message.timestamp.toISOString()}
+                    {message.timestamp.toLocaleTimeString()}
                   </p>
                 </div>
                 {message.role === 'user' && (
-                  <span className="text-2xl flex-shrink-0">👤</span>
+                  <span className="text-3xl flex-shrink-0">👤</span>
                 )}
               </div>
             </div>
@@ -305,19 +307,19 @@ const AIChat: React.FC = () => {
         {/* Typing indicator with streaming message */}
         {isTyping && (
           <div className="flex justify-start">
-            <div className="max-w-3xl px-4 py-3 rounded-lg shadow-sm bg-gray-100 text-gray-900">
-              <div className="flex items-start space-x-2">
-                <span className="text-2xl flex-shrink-0">🤖</span>
+            <div className="max-w-3xl px-5 py-4 rounded-2xl shadow-soft bg-white border-2 border-beige-200">
+              <div className="flex items-start space-x-3">
+                <span className="text-3xl flex-shrink-0">🤖</span>
                 <div className="flex-1">
                   {currentAIMessageRef.current ? (
-                    <div className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-ul:text-gray-900 prose-ol:text-gray-900">
+                    <div className="prose prose-sm max-w-none">
                       <ReactMarkdown>{currentAIMessageRef.current}</ReactMarkdown>
                     </div>
                   ) : (
                     <span className="flex items-center space-x-1">
-                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      <span className="w-2 h-2 bg-beige-400 rounded-full animate-bounce" />
+                      <span className="w-2 h-2 bg-beige-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-beige-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </span>
                   )}
                 </div>
@@ -330,7 +332,7 @@ const AIChat: React.FC = () => {
       </div>
 
       {/* Input Area */}
-      <div className="bg-white shadow-lg rounded-b-lg px-6 py-4 border-t border-gray-200">
+      <div className="bg-white border-t-2 border-beige-200 px-6 py-5">
         <div className="flex items-end space-x-3">
           <textarea
             ref={textareaRef}
@@ -338,21 +340,21 @@ const AIChat: React.FC = () => {
             onChange={handleTextareaChange}
             onKeyDown={handleKeyDown}
             placeholder="输入您的问题... (Enter 发送, Shift+Enter 换行)"
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="flex-1 px-4 py-3 border-2 border-beige-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-beige-400 focus:border-beige-400 resize-none bg-beige-50 text-beige-900 placeholder-beige-400"
             rows={1}
-            style={{ minHeight: '48px', maxHeight: '200px' }}
+            style={{ minHeight: '52px', maxHeight: '200px' }}
             disabled={connectionStatus !== 'connected'}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || connectionStatus !== 'connected' || isTyping}
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
+            className="px-6 py-3 bg-gradient-to-r from-beige-500 to-beige-600 hover:from-beige-600 hover:to-beige-700 text-white font-medium rounded-2xl shadow-soft disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             发送
           </button>
         </div>
-        <p className="text-xs text-gray-500 mt-2">
-          AI 回复基于您的交易数据分析，仅供参考
+        <p className="text-xs text-beige-500 mt-3">
+          💡 AI 回复基于您的交易数据分析，仅供参考
         </p>
       </div>
     </div>

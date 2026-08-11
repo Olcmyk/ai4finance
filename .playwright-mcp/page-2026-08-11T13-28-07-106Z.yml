@@ -1,0 +1,40 @@
+- generic [ref=f3e5]:
+  - navigation [ref=f3e6]:
+    - generic [ref=f3e8]:
+      - generic [ref=f3e9]:
+        - generic [ref=f3e10]: 💰 财务顾问
+        - generic [ref=f3e11]:
+          - link "概览" [ref=f3e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f3e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f3e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f3e15]:
+        - text: 测试用户
+        - button "退出" [ref=f3e16]
+  - main [ref=f3e17]:
+    - generic [ref=f3e19]:
+      - generic [ref=f3e20]:
+        - generic [ref=f3e21]:
+          - heading "🤖AI 财务顾问" [level=1] [ref=f3e22]
+          - paragraph [ref=f3e23]: 智能分析您的财务状况，提供个性化建议
+        - generic [ref=f3e24]:
+          - generic [ref=f3e45]: 已连接
+          - button "新对话" [ref=f3e26]
+      - generic [ref=f3e27]:
+        - generic [ref=f3e48]:
+          - generic [ref=f3e49]:
+            - paragraph [ref=f3e50]: 我这个月的支出情况如何？
+            - paragraph [ref=f3e51]: 2026-08-11T13:27:50.269Z
+          - text: 👤
+        - generic [ref=f3e54]:
+          - text: 🤖
+          - generic [ref=f3e55]:
+            - paragraph [ref=f3e57]: "错误: 生成响应时出错: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****UW58 is invalid', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}"
+            - paragraph [ref=f3e58]: 2026-08-11T13:27:50.768Z
+      - generic [ref=f3e39]:
+        - generic [ref=f3e40]:
+          - textbox "输入您的问题... (Enter 发送, Shift+Enter 换行)" [ref=f3e41]
+          - button "发送" [disabled] [ref=f3e42]
+        - paragraph [ref=f3e43]: AI 回复基于您的交易数据分析，仅供参考

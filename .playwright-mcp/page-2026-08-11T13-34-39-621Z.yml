@@ -1,0 +1,42 @@
+- generic [ref=f5e3]:
+  - navigation [ref=f5e4]:
+    - generic [ref=f5e6]:
+      - generic [ref=f5e7]:
+        - generic [ref=f5e8]: 💰 财务顾问
+        - generic [ref=f5e9]:
+          - link "概览" [ref=f5e10] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f5e11] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f5e12] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f5e13]:
+        - text: 测试用户
+        - button "退出" [ref=f5e14]
+  - main [ref=f5e15]:
+    - generic [ref=f5e17]:
+      - heading "新建交易" [level=1] [ref=f5e18]
+      - generic [ref=f5e19]:
+        - generic [ref=f5e20]:
+          - text: 输入方式
+          - generic [ref=f5e21]:
+            - generic [ref=f5e22]:
+              - radio "AI 智能输入" [checked] [ref=f5e23]
+              - text: AI 智能输入
+            - generic [ref=f5e24]:
+              - radio "手动输入" [ref=f5e25]
+              - text: 手动输入
+        - generic [ref=f5e26]:
+          - generic [ref=f5e27]:
+            - text: 描述你的交易
+            - textbox "描述你的交易" [ref=f5e28]:
+              - /placeholder: 例如：今天午餐花了50块，或者收到工资5000元
+              - text: 今天午餐花了50块
+          - generic [ref=f5e29]:
+            - text: 快速示例
+            - generic [ref=f5e30]:
+              - button "今天午餐花了50块" [active] [ref=f5e31]
+              - button "昨天买咖啡花了35元" [ref=f5e32]
+              - button "收到工资5000元" [ref=f5e33]
+          - button "AI 解析" [ref=f5e35]
+        - button "取消" [ref=f5e37]

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { transactionsApi } from '../api/transactions';
 import type { Transaction } from '../types/transaction';
+import { Button, Card } from '../components/ui';
 
 const TransactionList: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -39,8 +40,14 @@ const TransactionList: React.FC = () => {
 
   const formatAmount = (amount: string) => {
     const num = parseFloat(amount);
-    const color = num < 0 ? 'text-red-600' : 'text-green-600';
-    return <span className={color}>¥{Math.abs(num).toFixed(2)}</span>;
+    const color = num < 0 ? 'text-beige-700' : 'text-beige-600';
+    const icon = num < 0 ? '💸' : '💰';
+    return (
+      <span className={`${color} font-semibold flex items-center`}>
+        <span className="mr-1">{icon}</span>
+        ¥{Math.abs(num).toFixed(2)}
+      </span>
+    );
   };
 
   const groupByDate = (transactions: Transaction[]) => {
@@ -55,7 +62,14 @@ const TransactionList: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-10">加载中...</div>;
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-beige-500 mx-auto mb-4"></div>
+          <p className="text-beige-700">加载中...</p>
+        </div>
+      </div>
+    );
   }
 
   const groupedTransactions = groupByDate(transactions);
@@ -63,84 +77,86 @@ const TransactionList: React.FC = () => {
   return (
     <div>
       <div className="sm:flex sm:items-center sm:justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">交易记录</h1>
-        <Link
-          to="/app/transactions/new"
-          className="mt-4 sm:mt-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-        >
-          + 新建交易
+        <h1 className="text-2xl font-semibold text-beige-900">交易记录</h1>
+        <Link to="/app/transactions/new">
+          <Button className="mt-4 sm:mt-0">
+            + 新建交易
+          </Button>
         </Link>
       </div>
 
       {transactions.length === 0 ? (
-        <div className="text-center py-10 bg-white rounded-lg">
-          <p className="text-gray-500">暂无交易记录</p>
-          <Link to="/app/transactions/new" className="text-blue-600 hover:text-blue-500 mt-2 inline-block">
-            添加第一笔交易
+        <Card className="text-center py-12">
+          <span className="text-6xl block mb-4">📝</span>
+          <p className="text-beige-600 mb-4">暂无交易记录</p>
+          <Link to="/app/transactions/new">
+            <Button variant="primary">添加第一笔交易</Button>
           </Link>
-        </div>
+        </Card>
       ) : (
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+        <div className="space-y-4">
           {Object.entries(groupedTransactions).map(([date, items]) => (
-            <div key={date} className="border-b border-gray-200 last:border-0">
-              <div className="bg-gray-50 px-4 py-2">
-                <h3 className="text-sm font-medium text-gray-700">{date}</h3>
+            <Card key={date} padding="none">
+              <div className="bg-beige-100 px-6 py-3 rounded-t-2xl">
+                <h3 className="text-sm font-semibold text-beige-800">{date}</h3>
               </div>
-              <ul className="divide-y divide-gray-200">
+              <div className="divide-y divide-beige-200">
                 {items.map((transaction) => (
-                  <li key={transaction.id} className="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                  <div key={transaction.id} className="px-6 py-4 hover:bg-beige-50 transition-colors duration-200">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium text-gray-900">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="text-sm font-semibold text-beige-900">
                             {transaction.category}
                           </p>
-                          <p className="text-sm font-semibold">
+                          <div className="text-sm">
                             {formatAmount(transaction.amount)}
-                          </p>
+                          </div>
                         </div>
                         {transaction.description && (
-                          <p className="mt-1 text-sm text-gray-500">
+                          <p className="text-sm text-beige-600">
                             {transaction.description}
                           </p>
                         )}
                       </div>
-                      <div className="ml-4 flex-shrink-0 flex space-x-2">
+                      <div className="ml-4 flex-shrink-0">
                         <button
                           onClick={() => handleDelete(transaction.id)}
-                          className="text-red-600 hover:text-red-800 text-sm"
+                          className="text-red-600 hover:text-red-800 text-sm font-medium px-3 py-1 rounded-lg hover:bg-red-50 transition-all duration-200"
                         >
                           删除
                         </button>
                       </div>
                     </div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
-            </div>
+              </div>
+            </Card>
           ))}
         </div>
       )}
 
       {total > 20 && (
-        <div className="mt-6 flex justify-center space-x-4">
-          <button
+        <div className="mt-6 flex justify-center items-center space-x-4">
+          <Button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            variant="outline"
+            size="sm"
           >
             上一页
-          </button>
-          <span className="px-4 py-2 text-sm text-gray-700">
+          </Button>
+          <span className="px-4 py-2 text-sm text-beige-700 font-medium">
             第 {page} 页 / 共 {Math.ceil(total / 20)} 页
           </span>
-          <button
+          <Button
             onClick={() => setPage(p => p + 1)}
             disabled={page >= Math.ceil(total / 20)}
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            variant="outline"
+            size="sm"
           >
             下一页
-          </button>
+          </Button>
         </div>
       )}
     </div>

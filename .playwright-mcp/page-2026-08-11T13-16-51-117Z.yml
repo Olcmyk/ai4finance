@@ -1,0 +1,22 @@
+- generic [ref=e19]:
+  - generic [ref=e20]:
+    - heading "创建新账户" [level=2] [ref=e21]
+    - paragraph [ref=e22]: 开始使用 AI 个人财务顾问
+  - generic [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - text: 用户名
+        - textbox "用户名" [ref=e26]:
+          - /placeholder: 张三
+      - generic [ref=e27]:
+        - text: 邮箱
+        - textbox "邮箱" [ref=e28]:
+          - /placeholder: your@email.com
+      - generic [ref=e29]:
+        - text: 密码
+        - textbox "密码" [ref=e30]:
+          - /placeholder: 至少8个字符
+        - paragraph [ref=e31]: 密码必须至少8个字符，包含大小写字母和数字
+    - button "注册" [ref=e33]
+    - link "已有账户？立即登录" [ref=e35] [cursor=pointer]:
+      - /url: /login

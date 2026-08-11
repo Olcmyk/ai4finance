@@ -1,0 +1,82 @@
+- generic [ref=f26e5]:
+  - navigation [ref=f26e6]:
+    - generic [ref=f26e8]:
+      - generic [ref=f26e9]:
+        - generic [ref=f26e10]: 💰 财务顾问
+        - generic [ref=f26e11]:
+          - link "概览" [ref=f26e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f26e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f26e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f26e15]:
+        - text: Demo User
+        - button "退出" [ref=f26e16]
+  - main [ref=f26e17]:
+    - generic [ref=f26e19]:
+      - generic [ref=f26e20]:
+        - heading "财务概览" [level=1] [ref=f26e21]
+        - link "+ 新建交易" [ref=f26e22] [cursor=pointer]:
+          - /url: /app/transactions/new
+      - generic [ref=f26e23]:
+        - generic [ref=f26e24]:
+          - heading "AI 财务洞察" [level=2] [ref=f26e25]
+          - button "刷新" [ref=f26e26]
+        - generic [ref=f26e27]:
+          - generic [ref=f26e29]:
+            - generic [ref=f26e30]: ⚠️
+            - generic [ref=f26e31]:
+              - heading "支出集中提醒" [level=3] [ref=f26e32]
+              - paragraph [ref=f26e33]: 您在住房类别的支出占总支出的76.7%（¥2500.00），建议适当分散开销。
+          - generic [ref=f26e35]:
+            - generic [ref=f26e36]: 🔔
+            - generic [ref=f26e37]:
+              - heading "大额支出提醒" [level=3] [ref=f26e38]
+              - paragraph [ref=f26e39]: 检测到一笔¥2500.00的住房支出，是平均水平的5.4倍。请确认是否为正常开销。
+      - generic [ref=f26e40]:
+        - generic [ref=f26e44]:
+          - term [ref=f26e45]: 本月收入
+          - definition [ref=f26e46]: ¥5000.00
+        - generic [ref=f26e50]:
+          - term [ref=f26e51]: 本月支出
+          - definition [ref=f26e52]: ¥3257.50
+        - generic [ref=f26e56]:
+          - term [ref=f26e57]: 结余
+          - definition [ref=f26e58]: ¥1742.50
+      - generic [ref=f26e60]:
+        - heading "支出类别" [level=3] [ref=f26e61]
+        - generic [ref=f26e62]:
+          - generic [ref=f26e64]:
+            - text: 住房
+            - generic [ref=f26e65]: ¥2500.00 (76.7%)
+          - generic [ref=f26e67]:
+            - text: 购物
+            - generic [ref=f26e68]: ¥299.00 (9.2%)
+          - generic [ref=f26e70]:
+            - text: 通讯
+            - generic [ref=f26e71]: ¥150.00 (4.6%)
+          - generic [ref=f26e73]:
+            - text: 交通
+            - generic [ref=f26e74]: ¥120.50 (3.7%)
+          - generic [ref=f26e76]:
+            - text: 餐饮
+            - generic [ref=f26e77]: ¥103.00 (3.2%)
+          - generic [ref=f26e79]:
+            - text: 娱乐
+            - generic [ref=f26e80]: ¥85.00 (2.6%)
+      - generic [ref=f26e81]:
+        - heading "快速操作" [level=3] [ref=f26e82]
+        - generic [ref=f26e83]:
+          - link [ref=f26e84] [cursor=pointer]:
+            - /url: /app/transactions
+            - text: 📝
+            - generic [ref=f26e85]:
+              - paragraph [ref=f26e86]: 查看所有交易
+              - paragraph [ref=f26e87]: 浏览完整交易记录
+          - link [ref=f26e88] [cursor=pointer]:
+            - /url: /app/transactions/new
+            - text: ➕
+            - generic [ref=f26e89]:
+              - paragraph [ref=f26e90]: 添加新交易
+              - paragraph [ref=f26e91]: 记录一笔收入或支出

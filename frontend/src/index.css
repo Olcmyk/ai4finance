@@ -1,15 +1,15 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --text: #5D5038;
+  --text-h: #3D3428;
+  --bg: #FDFCF9;
+  --border: #E8D4B8;
+  --code-bg: #F5E6D3;
+  --accent: #C9B591;
+  --accent-bg: rgba(201, 181, 145, 0.1);
+  --accent-border: rgba(201, 181, 145, 0.5);
+  --social-bg: rgba(249, 246, 240, 0.8);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(201, 181, 145, 0.15) 0 2px 8px, rgba(201, 181, 145, 0.1) 0 1px 3px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -32,17 +32,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --text: #D4C4A8;
+    --text-h: #F5E6D3;
+    --bg: #2D2820;
+    --border: #5D5038;
+    --code-bg: #3D3428;
+    --accent: #C9B591;
+    --accent-bg: rgba(201, 181, 145, 0.15);
+    --accent-border: rgba(201, 181, 145, 0.5);
+    --social-bg: rgba(61, 52, 40, 0.8);
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.4) 0 4px 12px, rgba(0, 0, 0, 0.25) 0 2px 6px;
   }
 
   #social .button-icon {

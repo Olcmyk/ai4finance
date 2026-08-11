@@ -1,0 +1,55 @@
+- generic [ref=f4e5]:
+  - navigation [ref=f4e6]:
+    - generic [ref=f4e8]:
+      - generic [ref=f4e9]:
+        - generic [ref=f4e10]: 💰 财务顾问
+        - generic [ref=f4e11]:
+          - link "概览" [ref=f4e12] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f4e13] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f4e14] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f4e15]:
+        - text: 测试用户
+        - button "退出" [ref=f4e16]
+  - main [ref=f4e17]:
+    - generic [ref=f4e19]:
+      - generic [ref=f4e20]:
+        - generic [ref=f4e21]:
+          - heading "🤖AI 财务顾问" [level=1] [ref=f4e22]
+          - paragraph [ref=f4e23]: 智能分析您的财务状况，提供个性化建议
+        - generic [ref=f4e24]:
+          - generic [ref=f4e55]: 已连接
+          - button "新对话" [ref=f4e26]
+      - generic [ref=f4e27]:
+        - generic [ref=f4e48]:
+          - generic [ref=f4e49]:
+            - paragraph [ref=f4e50]: 我这个月的支出情况如何？
+            - paragraph [ref=f4e51]: 2026-08-11T13:30:31.389Z
+          - text: 👤
+        - generic [ref=f4e58]:
+          - text: 🤖
+          - generic [ref=f4e59]:
+            - paragraph [ref=f4e61]:
+              - text: "错误: 生成响应时出错: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum messagerole: \"USER\" [SQL: INSERT INTO ai_conversations (id, user_id, session_id, role, message, created_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::messagerole, $5::VARCHAR, $6::TIMESTAMP WITH TIME ZONE), ($7::UUID, $8::UUID, $9::UUID, $10::messagerole, $11::VARCHAR, $12::TIMESTAMP WITH TIME ZONE)] [parameters: (UUID('6f95f28c-2255-41b9-a3c8-6089413ec701'), UUID('24612ec0-b1d0-4f3b-bd0c-29253096620a'), UUID('169153ba-6a0a-4a34-8ea4-5cdd4300730f'), 'USER', '我这个月的支出情况如何？', datetime.datetime(2026, 8, 11, 13, 30, 35, 690351), UUID('051fff4f-f85b-4c34-a778-1f82fa0c2ed4'), UUID('24612ec0-b1d0-4f3b-bd0c-29253096620a'), UUID('169153ba-6a0a-4a34-8ea4-5cdd4300730f'), 'ASSISTANT', '根据您2026年8月的财务数据，目前情况如下：\\n\\n-"
+              - strong [ref=f4e62]: 总支出
+              - text: ：¥150.00 \n-
+              - strong [ref=f4e63]: 支出笔数
+              - text: ：1笔 \n-
+              - strong [ref=f4e64]: 支出类别
+              - text: ：全部为餐饮（¥150.00） \n-
+              - strong [ref=f4e65]: 收入
+              - text: ：¥0.00 \n-
+              - strong [ref=f4e66]: 结余
+              - text: ：¥-150.00 \n\n可以看出，本月目前只有一笔午 ... (105 characters truncated) ... 复盘更准确。 \n2.
+              - strong [ref=f4e67]: 控制餐饮预算
+              - text: ：如果午餐¥150属于单次较高消费，可以留意一下同类支出的频率，避免月底超支。 \n3.
+              - strong [ref=f4e68]: 考虑收入情况
+              - text: "：目前没有收入入账，若本月有工资或其他进账，及时记录后结余会更清晰。 \\n\\n如果需要，我可以帮您按周或按类别拆分分析，祝您财务管理顺利！', datetime.datetime(2026, 8, 11, 13, 30, 35, 690363))] (Background on this error at: https://sqlalche.me/e/20/dbapi)"
+            - paragraph [ref=f4e69]: 2026-08-11T13:30:35.705Z
+      - generic [ref=f4e39]:
+        - generic [ref=f4e40]:
+          - textbox "输入您的问题... (Enter 发送, Shift+Enter 换行)" [ref=f4e41]
+          - button "发送" [disabled] [ref=f4e42]
+        - paragraph [ref=f4e43]: AI 回复基于您的交易数据分析，仅供参考

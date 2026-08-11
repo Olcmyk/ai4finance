@@ -1,0 +1,57 @@
+- generic [ref=f20e18]:
+  - navigation [ref=f20e19]:
+    - generic [ref=f20e21]:
+      - generic [ref=f20e22]:
+        - generic [ref=f20e23]: 💰 财务顾问
+        - generic [ref=f20e24]:
+          - link "概览" [ref=f20e25] [cursor=pointer]:
+            - /url: /app/dashboard
+          - link "交易" [ref=f20e26] [cursor=pointer]:
+            - /url: /app/transactions
+          - link "AI顾问" [ref=f20e27] [cursor=pointer]:
+            - /url: /app/chat
+      - generic [ref=f20e28]:
+        - text: Demo User
+        - button "退出" [ref=f20e29]
+  - main [ref=f20e30]:
+    - generic [ref=f20e32]:
+      - generic [ref=f20e33]:
+        - heading "财务概览" [level=1] [ref=f20e34]
+        - link "+ 新建交易" [ref=f20e35] [cursor=pointer]:
+          - /url: /app/transactions/new
+      - generic [ref=f20e36]:
+        - generic [ref=f20e37]:
+          - heading "AI 财务洞察" [level=2] [ref=f20e38]
+          - button "刷新" [ref=f20e39]
+        - generic [ref=f20e40]:
+          - text: 📊
+          - paragraph [ref=f20e41]: 暂无财务洞察
+          - paragraph [ref=f20e42]: 添加更多交易记录后，AI 将为您提供个性化建议
+      - generic [ref=f20e43]:
+        - generic [ref=f20e47]:
+          - term [ref=f20e48]: 本月收入
+          - definition [ref=f20e49]: ¥0.00
+        - generic [ref=f20e53]:
+          - term [ref=f20e54]: 本月支出
+          - definition [ref=f20e55]: ¥0.00
+        - generic [ref=f20e59]:
+          - term [ref=f20e60]: 结余
+          - definition [ref=f20e61]: ¥0.00
+      - generic [ref=f20e63]:
+        - heading "支出类别" [level=3] [ref=f20e64]
+        - paragraph [ref=f20e65]: 暂无数据
+      - generic [ref=f20e66]:
+        - heading "快速操作" [level=3] [ref=f20e67]
+        - generic [ref=f20e68]:
+          - link [ref=f20e69] [cursor=pointer]:
+            - /url: /app/transactions
+            - text: 📝
+            - generic [ref=f20e70]:
+              - paragraph [ref=f20e71]: 查看所有交易
+              - paragraph [ref=f20e72]: 浏览完整交易记录
+          - link [ref=f20e73] [cursor=pointer]:
+            - /url: /app/transactions/new
+            - text: ➕
+            - generic [ref=f20e74]:
+              - paragraph [ref=f20e75]: 添加新交易
+              - paragraph [ref=f20e76]: 记录一笔收入或支出
