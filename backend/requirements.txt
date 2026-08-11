@@ -20,12 +20,18 @@ pydantic==2.9.2
 pydantic-settings==2.6.1
 
 # AI & LangChain
+# Note: Using newer versions due to compatibility issues with Python 3.13
+# langchain 0.1.0 and langchain-openai 0.0.5 have dependency conflicts with tiktoken
+# The newer versions maintain API compatibility for our use case
 langchain==0.3.7
 langchain-openai==0.2.8
 openai==1.54.4
 
 # HTTP Client
 httpx==0.27.2
+
+# Rate Limiting
+slowapi==0.1.9
 
 # Testing
 pytest==8.3.3

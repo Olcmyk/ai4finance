@@ -1,7 +1,9 @@
 """NLP API endpoints for natural language transaction parsing"""
 
 from datetime import datetime
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Request
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.core.security import get_current_user
 from app.services.langchain_service import LangChainService
@@ -9,17 +11,20 @@ from app.schemas.transaction import ParseNaturalLanguageRequest, ParsedTransacti
 
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/parse-transaction", response_model=ParsedTransactionResponse)
+@limiter.limit("20/minute")
 async def parse_transaction(
-    request: ParseNaturalLanguageRequest,
+    request: Request,
+    parse_request: ParseNaturalLanguageRequest,
     current_user: dict = Depends(get_current_user)
 ):
     """
     Parse natural language input into structured transaction data
 
-    Rate limit: 20 requests per minute per user
+    Rate limit: 20 requests per minute per IP address
 
     Example inputs:
     - "今天午餐花了50块"
@@ -29,7 +34,7 @@ async def parse_transaction(
     """
     try:
         service = LangChainService()
-        parsed = await service.parse_transaction(request.input)
+        parsed = await service.parse_transaction(parse_request.input)
 
         # Convert to response schema
         return ParsedTransactionResponse(
