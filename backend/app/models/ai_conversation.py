@@ -27,7 +27,7 @@ class AIConversation(Base):
     session_id = Column(UUID(as_uuid=True), nullable=False, index=True)
     role = Column(Enum(MessageRole), nullable=False)
     message = Column(Text, nullable=False)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, index=True)
 
     # Relationships
     user = relationship("User", back_populates="ai_conversations")

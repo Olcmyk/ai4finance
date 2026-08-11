@@ -8,6 +8,7 @@ from sqlalchemy import text
 
 from app.main import app
 from app.core.database import Base, get_db
+from app.core.seed_data import CATEGORY_SEED_DATA
 from app.config import settings
 
 
@@ -32,18 +33,7 @@ async def test_engine():
         await conn.run_sync(Base.metadata.create_all)
 
         # Seed categories
-        await conn.execute(text("""
-            INSERT INTO categories (name, icon, color) VALUES
-            ('餐饮', '🍔', '#FF6B6B'),
-            ('交通', '🚇', '#4ECDC4'),
-            ('购物', '🛍️', '#95E1D3'),
-            ('娱乐', '🎮', '#F9CA24'),
-            ('住房', '🏠', '#6C5CE7'),
-            ('医疗', '💊', '#A29BFE'),
-            ('教育', '📚', '#74B9FF'),
-            ('通讯', '📱', '#00B894'),
-            ('其他', '📦', '#B2BEC3')
-        """))
+        await conn.execute(text(CATEGORY_SEED_DATA))
 
     yield engine
 
