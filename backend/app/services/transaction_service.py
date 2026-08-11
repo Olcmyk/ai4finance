@@ -2,6 +2,7 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_, func
+from sqlalchemy.orm import selectinload
 from typing import List, Optional, Tuple
 from datetime import date
 import uuid
@@ -46,10 +47,13 @@ class TransactionService:
         )
         self.db.add(transaction)
         await self.db.flush()
-        await self.db.refresh(transaction)
-        # Load the category relationship
-        await self.db.refresh(transaction, ["category"])
-        return transaction
+
+        # Use eager loading to fetch transaction with category in one query
+        query = select(Transaction).options(selectinload(Transaction.category)).where(
+            Transaction.id == transaction.id
+        )
+        result = await self.db.execute(query)
+        return result.scalar_one()
 
     async def get_transactions(
         self,
@@ -63,33 +67,35 @@ class TransactionService:
         """Get transactions with filters and pagination"""
         user_uuid = uuid.UUID(user_id)
 
-        # Build query
-        query = select(Transaction).where(Transaction.user_id == user_uuid)
+        # Build base filter conditions
+        filters = [Transaction.user_id == user_uuid]
 
         if start_date:
-            query = query.where(Transaction.transaction_date >= start_date)
+            filters.append(Transaction.transaction_date >= start_date)
         if end_date:
-            query = query.where(Transaction.transaction_date <= end_date)
+            filters.append(Transaction.transaction_date <= end_date)
         if category:
             # Join with Category to filter by name
             category_id = await self._get_category_id_by_name(category)
             if category_id:
-                query = query.where(Transaction.category_id == category_id)
+                filters.append(Transaction.category_id == category_id)
 
-        # Count total
-        count_query = select(func.count()).select_from(query.subquery())
+        # Efficient count query - directly count with filters, no subquery
+        count_query = select(func.count(Transaction.id)).where(and_(*filters))
         total = await self.db.scalar(count_query)
 
-        # Get paginated results
-        query = query.order_by(Transaction.transaction_date.desc())
-        query = query.offset(skip).limit(limit)
+        # Get paginated results with eager loading - no N+1 queries
+        query = (
+            select(Transaction)
+            .options(selectinload(Transaction.category))
+            .where(and_(*filters))
+            .order_by(Transaction.transaction_date.desc())
+            .offset(skip)
+            .limit(limit)
+        )
 
         result = await self.db.execute(query)
         transactions = list(result.scalars().all())
-
-        # Load category relationships
-        for transaction in transactions:
-            await self.db.refresh(transaction, ["category"])
 
         return transactions, total or 0
 
@@ -99,17 +105,18 @@ class TransactionService:
         user_id: str
     ) -> Optional[Transaction]:
         """Get a single transaction by ID"""
-        query = select(Transaction).where(
-            and_(
-                Transaction.id == uuid.UUID(transaction_id),
-                Transaction.user_id == uuid.UUID(user_id)
+        query = (
+            select(Transaction)
+            .options(selectinload(Transaction.category))
+            .where(
+                and_(
+                    Transaction.id == uuid.UUID(transaction_id),
+                    Transaction.user_id == uuid.UUID(user_id)
+                )
             )
         )
         result = await self.db.execute(query)
-        transaction = result.scalar_one_or_none()
-        if transaction:
-            await self.db.refresh(transaction, ["category"])
-        return transaction
+        return result.scalar_one_or_none()
 
     async def update_transaction(
         self,
@@ -132,7 +139,11 @@ class TransactionService:
                     else:
                         setattr(transaction, key, value)
             await self.db.flush()
-            await self.db.refresh(transaction, ["category"])
+
+            # After flush, refetch with eager loading to get the updated category
+            # We need to expire the relationship to force a reload
+            self.db.expire(transaction, ['category'])
+            await self.db.refresh(transaction, ['category'])
 
         return transaction
 
