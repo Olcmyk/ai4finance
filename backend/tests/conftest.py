@@ -4,6 +4,7 @@ import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy import text
 
 from app.main import app
 from app.core.database import Base, get_db
@@ -29,6 +30,20 @@ async def test_engine():
     # Create tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+        # Seed categories
+        await conn.execute(text("""
+            INSERT INTO categories (name, icon, color) VALUES
+            ('餐饮', '🍔', '#FF6B6B'),
+            ('交通', '🚇', '#4ECDC4'),
+            ('购物', '🛍️', '#95E1D3'),
+            ('娱乐', '🎮', '#F9CA24'),
+            ('住房', '🏠', '#6C5CE7'),
+            ('医疗', '💊', '#A29BFE'),
+            ('教育', '📚', '#74B9FF'),
+            ('通讯', '📱', '#00B894'),
+            ('其他', '📦', '#B2BEC3')
+        """))
 
     yield engine
 

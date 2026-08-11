@@ -60,9 +60,10 @@ async def health_check():
 
 
 # Register API routers
-from app.api import auth
+from app.api import auth, categories
 
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(categories.router, prefix="/api/categories", tags=["categories"])
 
 # Additional routers (will be added later)
 # from app.api import transactions, analytics, ai, categories
