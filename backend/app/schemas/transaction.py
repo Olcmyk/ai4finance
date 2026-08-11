@@ -82,3 +82,14 @@ class ParsedTransactionResponse(BaseModel):
     description: str
     transaction_date: date
     confidence: float = Field(..., ge=0, le=1)
+
+    @model_serializer
+    def serialize_model(self) -> dict:
+        """Custom serialization to format amount with 2 decimal places"""
+        return {
+            'amount': f"{self.amount:.2f}" if isinstance(self.amount, Decimal) else str(self.amount),
+            'category': self.category,
+            'description': self.description,
+            'transaction_date': self.transaction_date.isoformat() if hasattr(self.transaction_date, 'isoformat') else str(self.transaction_date),
+            'confidence': self.confidence,
+        }
