@@ -1,7 +1,7 @@
 import apiClient from './client';
 
 export interface ParseTransactionRequest {
-  text: string;
+  input: string;
 }
 
 export interface ParseTransactionResponse {
@@ -14,7 +14,7 @@ export interface ParseTransactionResponse {
 
 export const nlpApi = {
   parseTransaction: async (text: string): Promise<ParseTransactionResponse> => {
-    const response = await apiClient.post('/api/nlp/parse-transaction', { text });
+    const response = await apiClient.post('/api/nlp/parse-transaction', { input: text });
     return response.data;
   },
 };

@@ -16,7 +16,7 @@ class ParsedTransaction(BaseModel):
     amount: float = Field(description="Transaction amount. Positive for income, negative for expenses.")
     category: str = Field(description="Transaction category. Must be one of: 餐饮、交通、购物、娱乐、住房、医疗、教育、通讯、其他")
     description: str = Field(description="Transaction description summarizing what the transaction was for")
-    transaction_date: str = Field(description="Transaction date in YYYY-MM-DD format")
+    date: str = Field(description="Transaction date in YYYY-MM-DD format")
     confidence: float = Field(description="Confidence score between 0 and 1", ge=0, le=1)
 
 
@@ -38,8 +38,12 @@ class LangChainService:
 
         self.llm = ChatOpenAI(**llm_kwargs)
 
-        # Create structured output parser
-        self.structured_llm = self.llm.with_structured_output(ParsedTransaction)
+        # Create structured output parser using JSON mode instead of tools
+        # This avoids tool_choice which DeepSeek doesn't support well
+        self.structured_llm = self.llm.with_structured_output(
+            ParsedTransaction,
+            method="json_mode"
+        )
 
         # Create prompt template
         self.prompt = ChatPromptTemplate.from_messages([
@@ -71,6 +75,8 @@ class LangChainService:
 - "昨天打车去机场花了120" → amount: -120.00, category: "交通", description: "打车去机场", date: 昨天, confidence: 0.95
 - "工资到账5000元" → amount: 5000.00, category: "其他", description: "工资", date: 今天, confidence: 0.9
 - "买了一件衣服299" → amount: -299.00, category: "购物", description: "买衣服", date: 今天, confidence: 0.9
+
+请以JSON格式输出结果。
 """),
             ("human", "{input}")
         ])

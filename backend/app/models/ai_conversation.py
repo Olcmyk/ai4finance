@@ -13,8 +13,8 @@ from app.core.database import Base
 
 class MessageRole(str, enum.Enum):
     """Message role in conversation"""
-    USER = "user"
-    ASSISTANT = "assistant"
+    USER = "USER"
+    ASSISTANT = "ASSISTANT"
 
 
 class AIConversation(Base):

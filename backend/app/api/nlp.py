@@ -41,7 +41,7 @@ async def parse_transaction(
             amount=service.convert_to_decimal(parsed.amount),
             category=parsed.category,
             description=parsed.description,
-            transaction_date=datetime.fromisoformat(parsed.transaction_date).date(),
+            transaction_date=datetime.fromisoformat(parsed.date).date(),
             confidence=parsed.confidence
         )
     except ValueError as e:

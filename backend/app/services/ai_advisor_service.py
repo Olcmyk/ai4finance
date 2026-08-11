@@ -267,10 +267,14 @@ class AIAdvisorService:
                 yield chunk.content
 
         # Save conversation after streaming completes
-        await self.save_conversation(
-            db=db,
-            user_id=user_id,
-            session_id=session_id,
-            user_message=user_message,
-            ai_response=full_response
-        )
+        try:
+            await self.save_conversation(
+                db=db,
+                user_id=user_id,
+                session_id=session_id,
+                user_message=user_message,
+                ai_response=full_response
+            )
+        except Exception as e:
+            # Log the error but don't fail the stream
+            print(f"Failed to save conversation: {e}")

@@ -95,7 +95,7 @@ export class ChatWebSocketClient {
     }
 
     const payload = {
-      session_id: this.sessionId,
+      conversation_id: this.sessionId || null,
       message: message,
     };
 

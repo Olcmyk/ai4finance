@@ -318,7 +318,7 @@ class InsightsService:
         # Find transactions > 2x average
         unusual_txns = [
             txn for txn in transactions
-            if abs(txn.amount) > avg_amount * UNUSUAL_ACTIVITY_MULTIPLIER
+            if abs(txn.amount) > avg_amount * Decimal(str(UNUSUAL_ACTIVITY_MULTIPLIER))
         ]
 
         if not unusual_txns:
