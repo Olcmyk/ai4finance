@@ -29,7 +29,7 @@ class Transaction(Base):
     category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
     description = Column(Text, nullable=True)
     transaction_date = Column(Date, nullable=False, index=True)
-    input_method = Column(Enum(InputMethod), nullable=False)
+    input_method = Column(Enum(InputMethod, values_callable=lambda x: [e.value for e in x]), nullable=False)
     original_input = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)

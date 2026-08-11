@@ -3,6 +3,8 @@ import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './components/Layout';
+import TransactionList from './pages/TransactionList';
+import NewTransaction from './pages/NewTransaction';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -33,7 +35,8 @@ function App() {
           }
         >
           <Route path="dashboard" element={<div className="text-gray-900">Dashboard 即将上线</div>} />
-          <Route path="transactions" element={<div className="text-gray-900">Transactions 即将上线</div>} />
+          <Route path="transactions" element={<TransactionList />} />
+          <Route path="transactions/new" element={<NewTransaction />} />
         </Route>
         <Route path="/" element={<Navigate to="/app/dashboard" />} />
       </Routes>
