@@ -2,14 +2,14 @@
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from datetime import date
+from datetime import date, datetime, timezone
+import uuid
 
 from app.core.database import get_db
 from app.core.security import get_current_user
 from app.services.analytics_service import AnalyticsService
 from app.services.insights_service import InsightsService
 from app.schemas.analytics import SummaryResponse, CategorySummaryResponse, InsightResponse
-import uuid
 
 router = APIRouter()
 
@@ -58,9 +58,8 @@ async def get_insights(
     service = InsightsService(db)
     insights = await service.generate_insights(user_id, month)
 
-    from datetime import datetime
     return InsightResponse(
         month=month,
         insights=insights,
-        generated_at=datetime.now()
+        generated_at=datetime.now(timezone.utc)
     )

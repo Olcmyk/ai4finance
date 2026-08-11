@@ -25,12 +25,18 @@ class LangChainService:
 
     def __init__(self):
         """Initialize LangChain service with OpenAI model"""
-        self.llm = ChatOpenAI(
-            model=settings.openai_model,
-            temperature=settings.openai_temperature,
-            api_key=settings.openai_api_key,
-            timeout=settings.openai_timeout
-        )
+        llm_kwargs = {
+            "model": settings.openai_model,
+            "temperature": settings.openai_temperature,
+            "api_key": settings.openai_api_key,
+            "timeout": settings.openai_timeout
+        }
+
+        # Add base_url if configured (for DeepSeek or other providers)
+        if settings.openai_base_url:
+            llm_kwargs["base_url"] = settings.openai_base_url
+
+        self.llm = ChatOpenAI(**llm_kwargs)
 
         # Create structured output parser
         self.structured_llm = self.llm.with_structured_output(ParsedTransaction)

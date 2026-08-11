@@ -12,6 +12,13 @@ from app.models.transaction import Transaction
 from app.models.category import Category
 from app.core.redis_client import redis_client
 
+# Insight generation thresholds
+SPENDING_CHANGE_THRESHOLD = 0.10  # 10% - minimum change to report
+TOP_CATEGORY_ALERT_THRESHOLD = 0.40  # 40% - concentrated spending alert
+DISCRETIONARY_SPENDING_THRESHOLD = 0.25  # 25% - savings opportunity threshold
+UNUSUAL_ACTIVITY_MULTIPLIER = 2.0  # 2x - unusual transaction detection
+CACHE_TTL_SECONDS = 21600  # 6 hours
+
 
 class InsightsService:
     """Service for generating financial insights"""
@@ -44,9 +51,13 @@ class InsightsService:
 
         # Check cache first (6 hours TTL)
         cache_key = f"insights:{user_id}:{month}"
-        cached = await redis_client.get(cache_key)
-        if cached:
-            return cached.get("insights", [])
+        try:
+            cached = await redis_client.get(cache_key)
+            if cached:
+                return cached.get("insights", [])
+        except Exception as e:
+            # Redis unavailable, continue without cache
+            print(f"Redis cache get failed: {e}")
 
         # Generate insights
         insights = []
@@ -72,7 +83,11 @@ class InsightsService:
             insights.append(unusual_insight)
 
         # Cache for 6 hours (21600 seconds)
-        await redis_client.set(cache_key, {"insights": insights}, ttl=21600)
+        try:
+            await redis_client.set(cache_key, {"insights": insights}, ttl=CACHE_TTL_SECONDS)
+        except Exception as e:
+            # Redis unavailable, continue without caching
+            print(f"Redis cache set failed: {e}")
 
         return insights
 
@@ -120,7 +135,7 @@ class InsightsService:
         change_percent = ((current_expense - prev_expense) / prev_expense) * 100
 
         # Only report if change > 10%
-        if abs(change_percent) < 10:
+        if abs(change_percent) < SPENDING_CHANGE_THRESHOLD * 100:
             return None
 
         if change_percent > 0:
@@ -179,7 +194,7 @@ class InsightsService:
         category_name = await self.db.scalar(category_query) or "未分类"
 
         # Only alert if one category is > 40% of total
-        if percentage > 40:
+        if percentage > TOP_CATEGORY_ALERT_THRESHOLD * 100:
             return {
                 "type": "top_category",
                 "title": "支出集中提醒",
@@ -258,7 +273,7 @@ class InsightsService:
         disc_percentage = (top_disc_amount / total_expense * 100) if total_expense > 0 else 0
 
         # Suggest savings if discretionary > 25%
-        if disc_percentage > 25:
+        if disc_percentage > DISCRETIONARY_SPENDING_THRESHOLD * 100:
             potential_savings = top_disc_amount * Decimal("0.1")  # 10% reduction
             return {
                 "type": "savings_opportunity",
@@ -303,7 +318,7 @@ class InsightsService:
         # Find transactions > 2x average
         unusual_txns = [
             txn for txn in transactions
-            if abs(txn.amount) > avg_amount * 2
+            if abs(txn.amount) > avg_amount * UNUSUAL_ACTIVITY_MULTIPLIER
         ]
 
         if not unusual_txns:

@@ -23,13 +23,19 @@ class AIAdvisorService:
 
     def __init__(self):
         """Initialize AI advisor service with streaming-enabled LLM"""
-        self.llm = ChatOpenAI(
-            model=settings.openai_model,
-            temperature=0.7,
-            api_key=settings.openai_api_key,
-            streaming=True,
-            timeout=settings.openai_timeout
-        )
+        llm_kwargs = {
+            "model": settings.openai_model,
+            "temperature": 0.7,
+            "api_key": settings.openai_api_key,
+            "streaming": True,
+            "timeout": settings.openai_timeout
+        }
+
+        # Add base_url if configured (for DeepSeek or other providers)
+        if settings.openai_base_url:
+            llm_kwargs["base_url"] = settings.openai_base_url
+
+        self.llm = ChatOpenAI(**llm_kwargs)
 
     async def get_user_context(
         self,

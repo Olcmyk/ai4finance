@@ -16,6 +16,7 @@ class Settings(BaseSettings):
 
     # OpenAI
     openai_api_key: str
+    openai_base_url: Optional[str] = None
 
     # JWT
     jwt_secret: str
