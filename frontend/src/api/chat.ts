@@ -51,7 +51,6 @@ export class ChatWebSocketClient {
     this.ws = new WebSocket(wsUrl);
 
     this.ws.onopen = () => {
-      console.log('WebSocket connected');
       this.reconnectAttempts = 0;
       this.reconnectDelay = 1000;
       this.setStatus('connected');
@@ -64,24 +63,21 @@ export class ChatWebSocketClient {
           this.onMessageCallback(message);
         }
       } catch (error) {
-        console.error('Failed to parse WebSocket message:', error);
+        // Silent error - malformed message
       }
     };
 
-    this.ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
+    this.ws.onerror = () => {
       this.setStatus('error');
     };
 
-    this.ws.onclose = (event) => {
-      console.log('WebSocket closed:', event.code, event.reason);
+    this.ws.onclose = () => {
       this.setStatus('disconnected');
 
       // Auto-reconnect if not intentionally closed and within retry limit
       if (!this.intentionallyClosed && this.reconnectAttempts < this.maxReconnectAttempts) {
         this.reconnectAttempts++;
         const delay = this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1); // Exponential backoff
-        console.log(`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
 
         setTimeout(() => {
           this.connect();

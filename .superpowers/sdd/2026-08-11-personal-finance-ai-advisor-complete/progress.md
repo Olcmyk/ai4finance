@@ -5,3 +5,4 @@ Task 2: complete (commits ebebde3..5fe399a, fix round 1/5: 2 addressed, 0 open -
 Task 3: complete (commits 5fe399a..8f577b5, fix round 1/5: 1 addressed, 0 open - test database cleanup fixed, all 7 tests passing)
 Task 4: complete (commits 8f577b5..c98fc28, review clean - NLP transaction input with AI parsing implemented)
 Task 5: complete (commit 6a2f64e, review clean - AI chat interface with WebSocket streaming implemented)
+Task 5: fix round 1/5 - fixing critical bugs (stale closure, send errors) and missing spec requirements (markdown, auth redirect, retry, ISO dates)

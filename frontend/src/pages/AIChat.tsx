@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import { ChatWebSocketClient } from '../api/chat';
 import type { ChatMessage, ConnectionStatus } from '../api/chat';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,8 +9,8 @@ const AIChat: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('disconnected');
-  const [currentAIMessage, setCurrentAIMessage] = useState('');
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('connecting');
+  const [error, setError] = useState<string>('');
   const [sessionId] = useState(() => {
     // Try to restore session from sessionStorage, or create new
     const stored = sessionStorage.getItem('chat_session_id');
@@ -18,6 +20,8 @@ const AIChat: React.FC = () => {
   const chatClientRef = useRef<ChatWebSocketClient | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const currentAIMessageRef = useRef<string>(''); // Use ref to avoid stale closure
+  const navigate = useNavigate();
 
   // Example questions
   const exampleQuestions = [
@@ -29,6 +33,13 @@ const AIChat: React.FC = () => {
 
   // Initialize WebSocket connection
   useEffect(() => {
+    // Check if user is authenticated
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
     // Save session ID
     sessionStorage.setItem('chat_session_id', sessionId);
 
@@ -38,19 +49,22 @@ const AIChat: React.FC = () => {
     // Set up message handler
     client.onMessage((message) => {
       if (message.type === 'chunk' && message.content) {
-        setCurrentAIMessage((prev) => prev + message.content);
+        currentAIMessageRef.current += message.content;
         setIsTyping(true);
+        // Force re-render to show streaming text
+        setMessages((prev) => [...prev]);
       } else if (message.type === 'complete') {
-        // Finalize AI message
+        // Finalize AI message using ref value
+        const finalMessage = currentAIMessageRef.current;
         setMessages((prev) => [
           ...prev,
           {
             role: 'assistant',
-            content: currentAIMessage,
+            content: finalMessage,
             timestamp: new Date(),
           },
         ]);
-        setCurrentAIMessage('');
+        currentAIMessageRef.current = '';
         setIsTyping(false);
       } else if (message.type === 'error') {
         // Show error message
@@ -62,7 +76,7 @@ const AIChat: React.FC = () => {
             timestamp: new Date(),
           },
         ]);
-        setCurrentAIMessage('');
+        currentAIMessageRef.current = '';
         setIsTyping(false);
       }
     });
@@ -70,6 +84,14 @@ const AIChat: React.FC = () => {
     // Set up status change handler
     client.onStatusChange((status) => {
       setConnectionStatus(status);
+
+      // Check for authentication errors
+      if (status === 'error') {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          navigate('/login');
+        }
+      }
     });
 
     // Connect
@@ -77,16 +99,19 @@ const AIChat: React.FC = () => {
 
     // Cleanup on unmount
     return () => {
+      // Cancel callbacks before disconnect to avoid state updates after unmount
+      client.onMessage(() => {});
+      client.onStatusChange(() => {});
       client.disconnect();
     };
-  }, [sessionId]);
+  }, [sessionId, navigate]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, currentAIMessage]);
+  }, [messages, isTyping]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim() || !chatClientRef.current?.isConnected()) {
       return;
     }
@@ -97,14 +122,28 @@ const AIChat: React.FC = () => {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
-    chatClientRef.current.sendMessage(input.trim());
+    const messageToSend = input.trim();
     setInput('');
-    setIsTyping(true);
+    setError('');
 
     // Reset textarea height
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
+    }
+
+    // Add user message to UI
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Try to send message with error handling
+    try {
+      chatClientRef.current.sendMessage(messageToSend);
+      setIsTyping(true);
+    } catch (err) {
+      // Remove the unsent message
+      setMessages((prev) => prev.slice(0, -1));
+      setError('发送失败，请重试');
+      // Restore input
+      setInput(messageToSend);
     }
   };
 
@@ -188,7 +227,7 @@ const AIChat: React.FC = () => {
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-white">
-        {messages.length === 0 && !currentAIMessage && (
+        {messages.length === 0 && !isTyping && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="text-6xl mb-4">💬</div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">开始与 AI 顾问对话</h3>
@@ -211,6 +250,18 @@ const AIChat: React.FC = () => {
           </div>
         )}
 
+        {error && (
+          <div className="mb-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded flex justify-between items-center">
+            <span>{error}</span>
+            <button
+              onClick={() => setError('')}
+              className="text-red-600 hover:text-red-800 font-bold"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
         {messages.map((message, index) => (
           <div
             key={index}
@@ -228,16 +279,19 @@ const AIChat: React.FC = () => {
                   <span className="text-2xl flex-shrink-0">🤖</span>
                 )}
                 <div className="flex-1">
-                  <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                  {message.role === 'user' ? (
+                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                  ) : (
+                    <div className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-ul:text-gray-900 prose-ol:text-gray-900">
+                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    </div>
+                  )}
                   <p
                     className={`text-xs mt-2 ${
                       message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
                     }`}
                   >
-                    {message.timestamp.toLocaleTimeString('zh-CN', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {message.timestamp.toISOString()}
                   </p>
                 </div>
                 {message.role === 'user' && (
@@ -255,15 +309,17 @@ const AIChat: React.FC = () => {
               <div className="flex items-start space-x-2">
                 <span className="text-2xl flex-shrink-0">🤖</span>
                 <div className="flex-1">
-                  <p className="whitespace-pre-wrap break-words">
-                    {currentAIMessage || (
-                      <span className="flex items-center space-x-1">
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                      </span>
-                    )}
-                  </p>
+                  {currentAIMessageRef.current ? (
+                    <div className="prose prose-sm max-w-none prose-headings:text-gray-900 prose-p:text-gray-900 prose-strong:text-gray-900 prose-ul:text-gray-900 prose-ol:text-gray-900">
+                      <ReactMarkdown>{currentAIMessageRef.current}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    <span className="flex items-center space-x-1">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
