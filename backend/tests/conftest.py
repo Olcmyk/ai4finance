@@ -76,3 +76,33 @@ async def client(db_session):
         yield ac
 
     app.dependency_overrides.clear()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def test_user(client: AsyncClient):
+    """Create a test user and return user data"""
+    response = await client.post(
+        "/api/auth/register",
+        json={
+            "email": "testuser@example.com",
+            "password": "Test1234",
+            "username": "Test User"
+        }
+    )
+    assert response.status_code == 201
+    return response.json()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def auth_headers(client: AsyncClient, test_user):
+    """Get authentication headers with valid token"""
+    response = await client.post(
+        "/api/auth/login",
+        json={
+            "email": "testuser@example.com",
+            "password": "Test1234"
+        }
+    )
+    assert response.status_code == 200
+    token = response.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
