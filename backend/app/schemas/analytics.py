@@ -53,10 +53,11 @@ class TrendResponse(BaseModel):
 
 class Insight(BaseModel):
     """Schema for AI insight"""
-    type: str = Field(..., pattern="^(anomaly|pattern|suggestion|achievement)$")
+    type: str
     title: str
-    description: str
+    message: str
     severity: str = Field(..., pattern="^(info|warning|success)$")
+    icon: str
 
 
 class InsightResponse(BaseModel):
