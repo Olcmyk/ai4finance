@@ -104,3 +104,35 @@ async def test_analytics_requires_auth(client: AsyncClient):
 
     response = await client.get("/api/analytics/by-category")
     assert response.status_code == 401
+
+
+@pytest.mark.asyncio
+async def test_summary_with_real_transaction(db_session, test_user):
+    """Test that summary correctly aggregates actual transactions"""
+    from app.services.transaction_service import TransactionService
+    from app.services.analytics_service import AnalyticsService
+    from app.schemas.transaction import TransactionCreate
+    from app.models.transaction import InputMethod
+    from decimal import Decimal
+    from datetime import date
+
+    # Create a real transaction
+    trans_service = TransactionService(db_session)
+    transaction = await trans_service.create_transaction(
+        user_id=test_user["id"],
+        data=TransactionCreate(
+            input_method=InputMethod.MANUAL,
+            amount=Decimal("-150.00"),
+            category="餐饮",
+            transaction_date=date.today()
+        )
+    )
+
+    # Get summary
+    analytics_service = AnalyticsService(db_session)
+    month = date.today().strftime("%Y-%m")
+    summary = await analytics_service.get_summary(test_user["id"], month)
+
+    # This should NOT be zero!
+    assert summary["total_expense"] == 150.00, f"Expected 150.00, got {summary['total_expense']}"
+    assert summary["transaction_count"] == 1
