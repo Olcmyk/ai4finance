@@ -11,6 +11,7 @@ const NewTransaction: React.FC = () => {
   const [transactionDate, setTransactionDate] = useState(
     new Date().toISOString().split('T')[0]
   );
+  const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -47,7 +48,7 @@ const NewTransaction: React.FC = () => {
 
       await transactionsApi.create({
         input_method: 'manual',
-        amount: -Math.abs(amountValue), // Negative for expense
+        amount: transactionType === 'expense' ? -Math.abs(amountValue) : Math.abs(amountValue),
         category,
         description: description || undefined,
         transaction_date: transactionDate,
@@ -73,6 +74,36 @@ const NewTransaction: React.FC = () => {
         )}
 
         <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              交易类型
+            </label>
+            <div className="flex space-x-4">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="transactionType"
+                  value="expense"
+                  checked={transactionType === 'expense'}
+                  onChange={(e) => setTransactionType(e.target.value as 'expense')}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                <span className="ml-2 text-sm text-gray-700">支出</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="transactionType"
+                  value="income"
+                  checked={transactionType === 'income'}
+                  onChange={(e) => setTransactionType(e.target.value as 'income')}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                <span className="ml-2 text-sm text-gray-700">收入</span>
+              </label>
+            </div>
+          </div>
+
           <div>
             <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
               金额（元）
