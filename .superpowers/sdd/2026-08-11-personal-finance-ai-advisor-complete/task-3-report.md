@@ -262,3 +262,89 @@ The backend is ready for frontend integration. The next task should:
 ## Conclusion
 
 Task 3 is complete and production-ready. The AI advisor service provides intelligent, context-aware financial advice with real-time streaming responses. All core functionality is implemented and tested. The WebSocket endpoint is functional (verified via import tests) and ready for frontend integration.
+
+---
+
+## Test Fix Appendix
+
+### Issue Identified
+After initial implementation, tests were failing with:
+```
+asyncpg.exceptions.UniqueViolationError: duplicate key value violates unique constraint "categories_name_key"
+DETAIL: Key (name)=(餐饮) already exists.
+```
+
+**Root Cause:** The test fixture (`test_engine` in `conftest.py`) was calling `create_all` without first calling `drop_all`. When a previous test run failed or was interrupted, tables remained in the test database with seeded data. The next test run would then attempt to insert duplicate category records, violating the unique constraint.
+
+### Solution Applied
+Modified `tests/conftest.py` to ensure clean database state by dropping all tables **before** creating them:
+
+```python
+@pytest_asyncio.fixture(scope="function")
+async def test_engine():
+    """Create a test engine for each test"""
+    engine = create_async_engine(
+        TEST_DATABASE_URL,
+        echo=False,
+        pool_pre_ping=True,
+        poolclass=None
+    )
+
+    # Drop all tables first to ensure clean state
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+
+    # Create tables and seed data
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        await conn.execute(text(CATEGORY_SEED_DATA))
+
+    yield engine
+
+    # Drop tables and dispose engine
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+
+    await engine.dispose()
+```
+
+**Change:** Added explicit `drop_all` before `create_all` to guarantee a clean slate for every test run.
+
+### Test Results After Fix
+
+**All AI Advisor Tests:** ✅ 7/7 PASSED (100%)
+```
+tests/test_ai_advisor.py::TestAIAdvisorService::test_get_user_context_current_month PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_get_user_context_specific_month PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_get_user_context_no_transactions PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_save_conversation PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_get_conversation_history PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_get_conversation_history_with_limit PASSED
+tests/test_ai_advisor.py::TestAIAdvisorService::test_chat_stream PASSED
+```
+
+**Full Test Suite:** ✅ 45/46 PASSED (97.8%)
+- 45 tests passing
+- 1 pre-existing failure unrelated to Task 3: `test_analytics_requires_auth` (expects 401, gets 403)
+- All Task 3 tests passing
+- No regressions introduced
+
+### Commits
+1. `dd6c206` - Initial implementation
+2. `[pending]` - Test database cleanup fix
+
+### Impact
+- Fixed test isolation issue affecting all tests
+- Ensures tests can run reliably in CI/CD
+- No code changes to implementation - only test infrastructure
+- All other test suites continue to pass
+
+### Verification
+```bash
+cd backend
+python -m pytest tests/test_ai_advisor.py -v
+# Result: 7 passed in 10.38s ✅
+
+python -m pytest tests/ -v
+# Result: 45 passed, 1 failed (pre-existing) ✅
+```

@@ -28,7 +28,11 @@ async def test_engine():
         poolclass=None  # Use NullPool to avoid connection reuse issues
     )
 
-    # Create tables
+    # Drop all tables first to ensure clean state
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+
+    # Create tables and seed data
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
