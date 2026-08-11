@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import TransactionList from './pages/TransactionList';
 import NewTransaction from './pages/NewTransaction';
+import AIChat from './pages/AIChat';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -38,6 +39,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="transactions" element={<TransactionList />} />
           <Route path="transactions/new" element={<NewTransaction />} />
+          <Route path="chat" element={<AIChat />} />
         </Route>
         <Route path="/" element={<Navigate to="/app/dashboard" />} />
       </Routes>
