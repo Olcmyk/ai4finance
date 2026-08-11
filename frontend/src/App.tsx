@@ -3,6 +3,7 @@ import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
 import TransactionList from './pages/TransactionList';
 import NewTransaction from './pages/NewTransaction';
 
@@ -34,7 +35,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="dashboard" element={<div className="text-gray-900">Dashboard 即将上线</div>} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="transactions" element={<TransactionList />} />
           <Route path="transactions/new" element={<NewTransaction />} />
         </Route>

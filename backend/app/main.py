@@ -60,13 +60,13 @@ async def health_check():
 
 
 # Register API routers
-from app.api import auth, categories, transactions
+from app.api import auth, categories, transactions, analytics
 
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(categories.router, prefix="/api/categories", tags=["categories"])
 app.include_router(transactions.router, prefix="/api/transactions", tags=["transactions"])
+app.include_router(analytics.router, prefix="/api/analytics", tags=["analytics"])
 
 # Additional routers (will be added later)
-# from app.api import analytics, ai
-# app.include_router(analytics.router, prefix="/api/analytics", tags=["analytics"])
+# from app.api import ai
 # app.include_router(ai.router, prefix="/api/ai", tags=["ai"])

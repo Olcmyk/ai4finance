@@ -16,9 +16,9 @@ class TopCategory(BaseModel):
 class SummaryResponse(BaseModel):
     """Schema for financial summary response"""
     month: str
-    total_income: Decimal
-    total_expense: Decimal
-    balance: Decimal
+    total_income: float
+    total_expense: float
+    balance: float
     transaction_count: int
     top_category: Optional[TopCategory] = None
 
@@ -26,7 +26,7 @@ class SummaryResponse(BaseModel):
 class CategoryBreakdown(BaseModel):
     """Schema for category breakdown"""
     name: str
-    amount: Decimal
+    amount: float
     percentage: float
     count: int
 
