@@ -1,0 +1,151 @@
+- generic [active] [ref=f52e1]:
+  - generic [ref=f52e3]:
+    - navigation [ref=f52e4]:
+      - generic [ref=f52e6]:
+        - generic [ref=f52e7]:
+          - generic [ref=f52e8]:
+            - generic [ref=f52e9]: 💰
+            - text: 财务顾问
+          - generic [ref=f52e10]:
+            - link "📊 概览" [ref=f52e11] [cursor=pointer]:
+              - /url: /app/dashboard
+            - link "💳 交易" [ref=f52e12] [cursor=pointer]:
+              - /url: /app/transactions
+            - link "🤖 AI顾问" [ref=f52e13] [cursor=pointer]:
+              - /url: /app/chat
+        - generic [ref=f52e14]:
+          - generic [ref=f52e15]: 👤Demo User
+          - button "退出" [ref=f52e16]
+    - main [ref=f52e17]:
+      - generic [ref=f52e19]:
+        - generic [ref=f52e21]:
+          - generic [ref=f52e22]:
+            - generic [ref=f52e23]:
+              - generic [ref=f52e24]: 财务概览
+              - generic [ref=f52e25]: 2026-08
+            - heading "欢迎回来！" [level=1] [ref=f52e26]
+            - paragraph [ref=f52e27]: 📊让我们一起分析您的财务状况
+          - link "+新建交易" [ref=f52e28] [cursor=pointer]:
+            - /url: /app/transactions/new
+        - generic [ref=f52e29]:
+          - generic [ref=f52e31]:
+            - generic [ref=f52e32]:
+              - generic [ref=f52e33]: Income
+              - paragraph [ref=f52e35]: ¥5,000
+              - paragraph [ref=f52e36]: 本月收入↗ 稳步增长
+            - generic [ref=f52e37]: 💰
+          - generic [ref=f52e39]:
+            - generic [ref=f52e40]:
+              - generic [ref=f52e41]: Expense
+              - paragraph [ref=f52e43]: ¥3,257.5
+              - paragraph [ref=f52e44]: 本月支出💸 合理消费
+            - generic [ref=f52e45]: 💸
+          - generic [ref=f52e47]:
+            - generic [ref=f52e48]:
+              - generic [ref=f52e49]: Balance
+              - paragraph [ref=f52e51]: ¥1,742.5
+              - paragraph [ref=f52e52]: 结余📈 财务健康
+            - generic [ref=f52e53]: 💎
+        - generic [ref=f52e54]:
+          - generic [ref=f52e55]:
+            - generic [ref=f52e56]:
+              - generic [ref=f52e57]: 🤖
+              - generic [ref=f52e58]:
+                - heading "AI 财务洞察" [level=2] [ref=f52e59]
+                - paragraph [ref=f52e60]: 基于您的消费数据生成的智能建议
+            - button "🔄 刷新洞察" [ref=f52e61]
+          - generic [ref=f52e62]:
+            - generic [ref=f52e64]:
+              - generic [ref=f52e65]: ⚠️
+              - generic [ref=f52e66]:
+                - heading "支出集中提醒" [level=3] [ref=f52e67]
+                - paragraph [ref=f52e68]: 您在住房类别的支出占总支出的76.7%（¥2500.00），建议适当分散开销。
+            - generic [ref=f52e70]:
+              - generic [ref=f52e71]: 🔔
+              - generic [ref=f52e72]:
+                - heading "大额支出提醒" [level=3] [ref=f52e73]
+                - paragraph [ref=f52e74]: 检测到一笔¥2500.00的住房支出，是平均水平的5.4倍。请确认是否为正常开销。
+        - generic [ref=f52e75]:
+          - generic [ref=f52e76]:
+            - heading "🥧支出分布" [level=3] [ref=f52e78]:
+              - generic [ref=f52e79]: 🥧
+              - text: 支出分布
+            - application [ref=f52e82]
+          - generic [ref=f52e83]:
+            - heading "📊支出排行" [level=3] [ref=f52e85]:
+              - generic [ref=f52e86]: 📊
+              - text: 支出排行
+            - application [ref=f52e89]:
+              - generic [ref=f52e101]:
+                - generic [ref=f52e102]:
+                  - generic [ref=f52e103]: 住房
+                  - generic [ref=f52e105]: 购物
+                  - generic [ref=f52e107]: 通讯
+                  - generic [ref=f52e109]: 交通
+                  - generic [ref=f52e111]: 餐饮
+                - generic [ref=f52e113]:
+                  - generic [ref=f52e114]: "0"
+                  - generic [ref=f52e116]: "650"
+                  - generic [ref=f52e118]: "1300"
+                  - generic [ref=f52e120]: "1950"
+                  - generic [ref=f52e122]: "2600"
+        - generic [ref=f52e124]:
+          - generic [ref=f52e125]:
+            - heading "📋详细分类" [level=3] [ref=f52e127]:
+              - generic [ref=f52e128]: 📋
+              - text: 详细分类
+            - generic [ref=f52e129]:
+              - generic [ref=f52e130]:
+                - generic [ref=f52e131]:
+                  - generic [ref=f52e132]: 💼住房
+                  - generic [ref=f52e133]: ¥2500.00
+                - paragraph [ref=f52e134]: 76.7% 总支出
+              - generic [ref=f52e135]:
+                - generic [ref=f52e136]:
+                  - generic [ref=f52e137]: 🍽️购物
+                  - generic [ref=f52e138]: ¥299.00
+                - paragraph [ref=f52e139]: 9.2% 总支出
+              - generic [ref=f52e140]:
+                - generic [ref=f52e141]:
+                  - generic [ref=f52e142]: 💰通讯
+                  - generic [ref=f52e143]: ¥150.00
+                - paragraph [ref=f52e144]: 4.6% 总支出
+              - generic [ref=f52e145]:
+                - generic [ref=f52e146]:
+                  - generic [ref=f52e147]: 💰交通
+                  - generic [ref=f52e148]: ¥120.50
+                - paragraph [ref=f52e149]: 3.7% 总支出
+              - generic [ref=f52e150]:
+                - generic [ref=f52e151]:
+                  - generic [ref=f52e152]: 💰餐饮
+                  - generic [ref=f52e153]: ¥103.00
+                - paragraph [ref=f52e154]: 3.2% 总支出
+              - generic [ref=f52e155]:
+                - generic [ref=f52e156]:
+                  - generic [ref=f52e157]: 💰娱乐
+                  - generic [ref=f52e158]: ¥85.00
+                - paragraph [ref=f52e159]: 2.6% 总支出
+          - generic [ref=f52e160]:
+            - heading "⚡快速操作" [level=3] [ref=f52e162]:
+              - generic [ref=f52e163]: ⚡
+              - text: 快速操作
+            - generic [ref=f52e164]:
+              - link "📝 查看所有交易 浏览完整交易记录" [ref=f52e165] [cursor=pointer]:
+                - /url: /app/transactions
+                - generic [ref=f52e166]: 📝
+                - generic [ref=f52e167]:
+                  - paragraph [ref=f52e168]: 查看所有交易
+                  - paragraph [ref=f52e169]: 浏览完整交易记录
+              - link "➕ 添加新交易 记录一笔收入或支出" [ref=f52e170] [cursor=pointer]:
+                - /url: /app/transactions/new
+                - generic [ref=f52e171]: ➕
+                - generic [ref=f52e172]:
+                  - paragraph [ref=f52e173]: 添加新交易
+                  - paragraph [ref=f52e174]: 记录一笔收入或支出
+              - link "🤖 AI 财务顾问 智能分析和建议" [ref=f52e175] [cursor=pointer]:
+                - /url: /app/chat
+                - generic [ref=f52e176]: 🤖
+                - generic [ref=f52e177]:
+                  - paragraph [ref=f52e178]: AI 财务顾问
+                  - paragraph [ref=f52e179]: 智能分析和建议
+  - generic [ref=f52e180]: "0"

@@ -1,0 +1,13 @@
+uid=19_0 RootWebArea "frontend" url="http://localhost:5175/login"
+  uid=19_1 StaticText "💰"
+  uid=19_2 heading "AI 财务顾问" level="2"
+  uid=19_3 StaticText "登录您的账户，开始智能理财"
+  uid=19_4 form
+    uid=19_5 StaticText "邮箱"
+    uid=19_6 textbox "邮箱" required
+    uid=19_7 StaticText "密码"
+    uid=19_8 textbox "密码" required
+    uid=19_9 button "🚀 登录"
+    uid=19_10 link "还没有账户？立即注册 →" url="http://localhost:5175/register"
+      uid=19_11 StaticText "还没有账户？立即注册 →"
+  uid=19_12 StaticText "💡 使用 AI 技术智能管理您的财务"

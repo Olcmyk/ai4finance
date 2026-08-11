@@ -1,0 +1,41 @@
+- generic [ref=f51e3]:
+  - generic [ref=f51e5]:
+    - generic [ref=f51e6]: ✨AI-Powered Finance
+    - heading "智能财务管理 从这里开始" [level=1] [ref=f51e8]: 智能财务管理从这里开始
+    - paragraph [ref=f51e9]: 使用先进的 AI 技术分析您的财务数据，获取个性化建议，让理财变得简单而高效
+    - generic [ref=f51e10]:
+      - generic [ref=f51e11]:
+        - generic [ref=f51e12]: 📊
+        - generic [ref=f51e13]:
+          - heading "实时数据分析" [level=3] [ref=f51e14]
+          - paragraph [ref=f51e15]: 智能图表与可视化
+      - generic [ref=f51e16]:
+        - generic [ref=f51e17]: 🤖
+        - generic [ref=f51e18]:
+          - heading "AI 智能顾问" [level=3] [ref=f51e19]
+          - paragraph [ref=f51e20]: 24/7 个性化财务建议
+      - generic [ref=f51e21]:
+        - generic [ref=f51e22]: 🔒
+        - generic [ref=f51e23]:
+          - heading "安全可靠" [level=3] [ref=f51e24]
+          - paragraph [ref=f51e25]: 银行级数据加密
+  - generic [ref=f51e27]:
+    - generic [ref=f51e28]:
+      - generic [ref=f51e29]: 💰
+      - heading "AI 财务顾问" [level=2] [ref=f51e30]
+    - generic [ref=f51e31]:
+      - heading "欢迎回来" [level=2] [ref=f51e32]
+      - paragraph [ref=f51e33]: 登录您的账户继续管理财务
+    - generic [ref=f51e35]:
+      - generic [ref=f51e36]:
+        - text: 邮箱地址
+        - textbox "邮箱地址" [ref=f51e37]:
+          - /placeholder: your@email.com
+      - generic [ref=f51e38]:
+        - text: 密码
+        - textbox "密码" [ref=f51e39]:
+          - /placeholder: ••••••••
+      - button "登录" [ref=f51e40]
+      - link "还没有账户？立即注册 →" [ref=f51e42] [cursor=pointer]:
+        - /url: /register
+    - paragraph [ref=f51e43]: 🔒 您的数据安全受到保护
