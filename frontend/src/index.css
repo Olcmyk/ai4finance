@@ -1,6 +1,29 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Luxury Color Palette */
+  --color-luxury-gold: #D4AF37;
+  --color-luxury-lightGold: #DAA520;
+  --color-luxury-darkGold: #B8860B;
+  --color-luxury-beige: #C9B591;
+  --color-luxury-lightBeige: #F5F1E8;
+  --color-luxury-cream: #FAF8F3;
+  --color-luxury-brown: #8B7355;
+  --color-luxury-darkBrown: #4A3F2E;
+  --color-luxury-charcoal: #2C2416;
+  --color-luxury-border: #E8DCC8;
+
+  /* Luxury Fonts */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: Lora, Charter, Georgia, serif;
+
+  /* Luxury Shadows */
+  --shadow-luxury: 0 2px 8px rgb(212 175 55 / 0.08);
+  --shadow-luxury-md: 0 4px 16px rgb(212 175 55 / 0.12);
+  --shadow-luxury-lg: 0 8px 24px rgb(212 175 55 / 0.16);
+  --shadow-gold-glow: 0 0 20px rgb(212 175 55 / 0.3);
+}
 
 @layer base {
   body {
