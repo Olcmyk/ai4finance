@@ -17,62 +17,61 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-pink-50">
-      <nav className="bg-white/90 backdrop-blur-md shadow-xl border-b-2 border-gray-200">
+    <div className="min-h-screen bg-luxury-cream">
+      {/* Luxury Navigation Bar */}
+      <nav className="bg-white/80 backdrop-blur-md border-b border-luxury-border sticky top-0 z-50 shadow-luxury">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20">
-            <div className="flex">
+            {/* Logo Section */}
+            <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-2 mr-3 shadow-lg">
-                  <span className="text-3xl">💰</span>
+                <div className="relative">
+                  <span className="text-2xl font-display font-bold text-luxury-gold tracking-wider">
+                    WEALTH ADVISOR
+                  </span>
+                  <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-luxury-gold to-luxury-lightGold"></div>
                 </div>
-                <span className="text-2xl font-black text-gray-900">
-                  财务顾问
-                </span>
               </div>
-              <div className="hidden sm:ml-8 sm:flex sm:space-x-4">
+
+              {/* Navigation Links */}
+              <div className="hidden sm:ml-12 sm:flex sm:space-x-8">
                 <Link
                   to="/app/dashboard"
-                  className={`${
-                    isActive('/app/dashboard')
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 hover:text-gray-900'
-                  } inline-flex items-center px-6 py-2 rounded-2xl text-base font-bold transition-all duration-300 transform hover:scale-105`}
+                  className={`
+                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
+                    transition-all duration-300
+                    ${isActive('/app/dashboard')
+                      ? 'border-luxury-gold text-luxury-gold'
+                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                    }
+                  `}
                 >
-                  📊 概览
+                  概览
                 </Link>
                 <Link
                   to="/app/transactions"
-                  className={`${
-                    isActive('/app/transactions')
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gradient-to-r hover:from-blue-100 hover:to-indigo-100 hover:text-gray-900'
-                  } inline-flex items-center px-6 py-2 rounded-2xl text-base font-bold transition-all duration-300 transform hover:scale-105`}
+                  className={`
+                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
+                    transition-all duration-300
+                    ${isActive('/app/transactions')
+                      ? 'border-luxury-gold text-luxury-gold'
+                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                    }
+                  `}
                 >
-                  💳 交易
-                </Link>
-                <Link
-                  to="/app/chat"
-                  className={`${
-                    isActive('/app/chat')
-                      ? 'bg-gradient-to-r from-emerald-600 to-green-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gradient-to-r hover:from-emerald-100 hover:to-green-100 hover:text-gray-900'
-                  } inline-flex items-center px-6 py-2 rounded-2xl text-base font-bold transition-all duration-300 transform hover:scale-105`}
-                >
-                  🤖 AI顾问
+                  交易
                 </Link>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-5 py-2 rounded-2xl border-2 border-purple-200">
-                <span className="text-2xl">👤</span>
-                <span className="text-base font-bold text-gray-900">
-                  {user?.username}
-                </span>
-              </div>
+
+            {/* User Section */}
+            <div className="flex items-center space-x-6">
+              <span className="text-sm font-medium text-luxury-darkBrown tracking-wide">
+                {user?.username}
+              </span>
               <button
                 onClick={handleLogout}
-                className="px-6 py-3 text-base font-bold text-red-600 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 bg-red-50 border-2 border-red-200 hover:border-transparent rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="text-sm font-medium text-luxury-brown hover:text-luxury-gold transition-colors duration-300 tracking-wide uppercase"
               >
                 退出
               </button>
@@ -81,11 +80,15 @@ const Layout: React.FC = () => {
         </div>
       </nav>
 
-      <main className="py-8">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      {/* Main Content */}
+      <main className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Outlet />
         </div>
       </main>
+
+      {/* Decorative Gold Line at Bottom */}
+      <div className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-luxury-gold to-transparent opacity-30"></div>
     </div>
   );
 };

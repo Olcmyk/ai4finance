@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { transactionsApi } from '../api/transactions';
 import type { Transaction } from '../types/transaction';
-import { Button } from '../components/ui';
+import { LuxuryCard, LuxuryButton } from '../components/luxury';
 
 const TransactionList: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -40,14 +40,30 @@ const TransactionList: React.FC = () => {
 
   const formatAmount = (amount: string) => {
     const num = parseFloat(amount);
-    const color = num < 0 ? 'text-beige-700' : 'text-beige-600';
-    const icon = num < 0 ? '💸' : '💰';
-    return (
-      <span className={`${color} font-semibold flex items-center`}>
-        <span className="mr-1">{icon}</span>
-        ¥{Math.abs(num).toFixed(2)}
-      </span>
-    );
+    const formattedValue = Math.abs(num).toLocaleString('zh-CN', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    const color = num < 0 ? 'text-expense' : 'text-income';
+    const prefix = num < 0 ? '-' : '+';
+    return <span className={`${color} font-mono font-bold`}>{prefix}¥{formattedValue}</span>;
+  };
+
+  const getCategoryIcon = (category: string) => {
+    // Simple icon mapping - elegant symbols instead of emoji
+    const icons: Record<string, string> = {
+      '餐饮': '◆',
+      '交通': '▸',
+      '购物': '◇',
+      '娱乐': '○',
+      '医疗': '△',
+      '教育': '◈',
+      '住房': '▣',
+      '工资': '◆',
+      '投资': '◈',
+    };
+    return icons[category] || '◆';
   };
 
   const groupByDate = (transactions: Transaction[]) => {
@@ -64,10 +80,7 @@ const TransactionList: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-beige-500 mx-auto mb-4"></div>
-          <p className="text-beige-700">加载中...</p>
-        </div>
+        <div className="text-luxury-brown text-lg tracking-wide">加载中...</div>
       </div>
     );
   }
@@ -75,113 +88,131 @@ const TransactionList: React.FC = () => {
   const groupedTransactions = groupByDate(transactions);
 
   return (
-    <div>
-      <div className="sm:flex sm:items-center sm:justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-4xl font-black text-gray-900 mb-2">交易记录</h1>
-          <p className="text-gray-600 text-lg">查看和管理您的所有交易</p>
+          <h1 className="font-display text-4xl font-bold text-luxury-gold tracking-wide">交易记录</h1>
+          <p className="text-luxury-brown mt-2 tracking-wide">管理您的所有财务交易</p>
         </div>
         <Link to="/app/transactions/new">
-          <Button className="mt-4 sm:mt-0 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-            <span className="text-xl mr-2">+</span> 新建交易
-          </Button>
+          <LuxuryButton variant="primary">
+            新建交易
+          </LuxuryButton>
         </Link>
       </div>
 
       {transactions.length === 0 ? (
-        <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 rounded-3xl shadow-xl p-20 text-center border-2 border-purple-100">
-          <div className="relative z-10">
-            <div className="inline-block bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-10 mb-6 shadow-glow-purple">
-              <span className="text-8xl">📝</span>
-            </div>
-            <h2 className="text-3xl font-black text-gray-900 mb-4">暂无交易记录</h2>
-            <p className="text-gray-600 mb-8 text-lg">开始记录您的第一笔交易</p>
-            <Link to="/app/transactions/new">
-              <Button variant="primary" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl text-lg">
-                <span className="text-xl mr-2">+</span> 添加第一笔交易
-              </Button>
-            </Link>
-          </div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200 opacity-20 rounded-full -mr-32 -mt-32"></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-pink-200 opacity-20 rounded-full -ml-24 -mb-24"></div>
-        </div>
+        <LuxuryCard className="text-center py-20">
+          <p className="text-luxury-brown text-lg font-medium tracking-wide mb-4">暂无交易记录</p>
+          <Link to="/app/transactions/new">
+            <LuxuryButton variant="outline">
+              添加第一笔交易
+            </LuxuryButton>
+          </Link>
+        </LuxuryCard>
       ) : (
         <div className="space-y-6">
           {Object.entries(groupedTransactions).map(([date, items]) => (
-            <div key={date} className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-gray-100">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4">
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">📅</span>
-                  <h3 className="text-lg font-black text-white">{date}</h3>
-                </div>
+            <LuxuryCard key={date} className="overflow-hidden">
+              {/* Date Header */}
+              <div className="bg-luxury-lightBeige border-b border-luxury-border px-6 py-3">
+                <h3 className="text-sm font-medium text-luxury-darkBrown uppercase tracking-wider">{date}</h3>
               </div>
-              <div className="divide-y divide-gray-100">
-                {items.map((transaction) => {
-                  const isExpense = parseFloat(transaction.amount) < 0;
+
+              {/* Transactions */}
+              <div className="divide-y divide-luxury-border">
+                {items.map((transaction, index) => {
                   return (
-                    <div key={transaction.id} className="px-8 py-6 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 transition-all duration-200 group">
+                    <div
+                      key={transaction.id}
+                      className={`px-6 py-5 hover:bg-luxury-cream transition-colors duration-200 ${
+                        index % 2 === 0 ? 'bg-white' : 'bg-luxury-cream/30'
+                      }`}
+                    >
                       <div className="flex items-center justify-between">
-                        <div className="flex-1 flex items-center space-x-4">
-                          <div className={`${isExpense ? 'bg-gradient-to-br from-red-500 to-rose-500' : 'bg-gradient-to-br from-emerald-500 to-green-500'} rounded-2xl p-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                            <span className="text-3xl">{isExpense ? '💸' : '💰'}</span>
-                          </div>
+                        <div className="flex items-center space-x-4 flex-1">
+                          {/* Category Icon */}
+                          <span className="text-luxury-gold text-xl">
+                            {getCategoryIcon(transaction.category)}
+                          </span>
+
+                          {/* Category and Description */}
                           <div className="flex-1">
-                            <div className="flex items-center justify-between mb-2">
-                              <p className="text-lg font-bold text-gray-900">
-                                {transaction.category}
-                              </p>
-                              <div className={`text-2xl font-black ${isExpense ? 'text-red-600' : 'text-emerald-600'}`}>
-                                {formatAmount(transaction.amount)}
-                              </div>
-                            </div>
+                            <p className="text-base font-medium text-luxury-darkBrown tracking-wide">
+                              {transaction.category}
+                            </p>
                             {transaction.description && (
-                              <p className="text-base text-gray-600">
+                              <p className="text-sm text-luxury-brown mt-1 tracking-wide">
                                 {transaction.description}
                               </p>
                             )}
                           </div>
                         </div>
-                        <div className="ml-6 flex-shrink-0">
-                          <button
-                            onClick={() => handleDelete(transaction.id)}
-                            className="text-red-600 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 text-base font-bold px-5 py-3 rounded-2xl hover:shadow-xl transition-all duration-300 border-2 border-red-200 hover:border-transparent"
-                          >
-                            🗑️ 删除
-                          </button>
+
+                        {/* Amount */}
+                        <div className="text-right mr-6">
+                          <span className="text-lg">
+                            {formatAmount(transaction.amount)}
+                          </span>
                         </div>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => handleDelete(transaction.id)}
+                          className="text-sm text-expense hover:text-expense-dark transition-colors duration-200 font-medium tracking-wide"
+                        >
+                          删除
+                        </button>
                       </div>
                     </div>
                   );
                 })}
               </div>
-            </div>
+            </LuxuryCard>
           ))}
         </div>
       )}
 
+      {/* Pagination */}
       {total > 20 && (
-        <div className="mt-8 flex justify-center items-center space-x-6 bg-white rounded-3xl shadow-xl p-6 border-2 border-gray-100">
-          <Button
+        <div className="flex justify-center items-center space-x-4">
+          <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            variant="outline"
-            size="sm"
-            className="px-6 py-3 font-bold text-base rounded-2xl disabled:opacity-50"
+            className={`
+              px-6 py-3
+              border border-luxury-border
+              rounded-md
+              text-sm font-medium tracking-wide
+              transition-all duration-300
+              ${page === 1
+                ? 'text-luxury-brown/50 bg-luxury-cream cursor-not-allowed'
+                : 'text-luxury-darkBrown bg-white hover:bg-luxury-cream hover:border-luxury-gold'
+              }
+            `}
           >
-            ← 上一页
-          </Button>
-          <span className="px-6 py-3 text-base font-bold text-gray-900 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200">
+            上一页
+          </button>
+          <span className="px-4 py-2 text-sm text-luxury-darkBrown font-medium tracking-wide">
             第 {page} 页 / 共 {Math.ceil(total / 20)} 页
           </span>
-          <Button
+          <button
             onClick={() => setPage(p => p + 1)}
             disabled={page >= Math.ceil(total / 20)}
-            variant="outline"
-            size="sm"
-            className="px-6 py-3 font-bold text-base rounded-2xl disabled:opacity-50"
+            className={`
+              px-6 py-3
+              border border-luxury-border
+              rounded-md
+              text-sm font-medium tracking-wide
+              transition-all duration-300
+              ${page >= Math.ceil(total / 20)
+                ? 'text-luxury-brown/50 bg-luxury-cream cursor-not-allowed'
+                : 'text-luxury-darkBrown bg-white hover:bg-luxury-cream hover:border-luxury-gold'
+              }
+            `}
           >
-            下一页 →
-          </Button>
+            下一页
+          </button>
         </div>
       )}
     </div>
