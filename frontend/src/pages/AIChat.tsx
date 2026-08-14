@@ -112,7 +112,7 @@ const AIChat: React.FC = () => {
   }, [messages, isTyping]);
 
   const handleSend = async () => {
-    if (!input.trim() || !chatClientRef.current?.isConnected()) {
+    if (!input.trim() || !chatClientRef.current || connectionStatus !== 'connected') {
       return;
     }
 
@@ -124,26 +124,28 @@ const AIChat: React.FC = () => {
 
     const messageToSend = input.trim();
     setInput('');
-    setError('');
+
+    // Add user message to display
+    setMessages((prev) => [...prev, userMessage]);
 
     // Reset textarea height
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
     }
 
-    // Add user message to UI
-    setMessages((prev) => [...prev, userMessage]);
-
-    // Try to send message with error handling
+    // Send message via WebSocket
     try {
       chatClientRef.current.sendMessage(messageToSend);
-      setIsTyping(true);
     } catch (err) {
-      // Remove the unsent message
-      setMessages((prev) => prev.slice(0, -1));
-      setError('发送失败，请重试');
-      // Restore input
-      setInput(messageToSend);
+      console.error('Failed to send message:', err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: '抱歉，发送消息失败。请稍后再试。',
+          timestamp: new Date(),
+        },
+      ]);
     }
   };
 
@@ -194,7 +196,7 @@ const AIChat: React.FC = () => {
         {(connectionStatus === 'disconnected' || connectionStatus === 'error') && (
           <button
             onClick={handleReconnect}
-            className="text-xs text-blue-600 hover:text-blue-700 underline"
+            className="text-xs text-luxury-gold hover:text-luxury-darkGold underline"
           >
             重新连接
           </button>
@@ -204,66 +206,51 @@ const AIChat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-3xl shadow-2xl border-2 border-gray-200 overflow-hidden">
+    <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-3xl shadow-luxury border-2 border-luxury-border overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 border-b-2 border-purple-300 px-8 py-6 flex justify-between items-center shadow-xl">
+      <div className="bg-gradient-to-r from-luxury-cream via-luxury-lightGold/20 to-luxury-cream border-b-2 border-luxury-border px-8 py-6 flex justify-between items-center shadow-luxury">
         <div>
-          <h1 className="text-4xl font-black text-white flex items-center drop-shadow-lg">
-            <span className="text-5xl mr-4">🤖</span>
+          <h1 className="text-3xl font-display font-bold text-luxury-gold flex items-center tracking-wide">
+            <span className="text-4xl mr-4">💬</span>
             AI 财务顾问
           </h1>
-          <p className="text-base text-purple-100 mt-2 font-semibold">智能分析您的财务状况，提供个性化建议</p>
+          <p className="text-sm text-luxury-brown mt-2 tracking-wide">智能分析您的财务状况，提供个性化建议</p>
         </div>
         <div className="flex items-center space-x-4">
           <StatusIndicator />
           <button
             onClick={handleNewSession}
-            className="px-6 py-3 text-base font-bold text-purple-700 bg-white hover:bg-purple-50 rounded-2xl border-2 border-white hover:border-purple-200 transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+            className="px-6 py-3 text-sm font-medium text-luxury-darkBrown bg-white hover:bg-luxury-cream rounded-xl border-2 border-luxury-border hover:border-luxury-gold transition-all shadow-luxury tracking-wide uppercase"
           >
-            🔄 新对话
+            新对话
           </button>
         </div>
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-8 py-8 space-y-6 bg-gradient-to-br from-gray-50 to-purple-50">
+      <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6 bg-luxury-cream">
         {messages.length === 0 && !isTyping && (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-10 rounded-3xl mb-8 shadow-glow-purple">
-              <span className="text-8xl">💬</span>
+            <div className="bg-gradient-to-br from-luxury-lightGold/30 to-luxury-beige/30 p-8 rounded-3xl mb-6 shadow-luxury">
+              <span className="text-7xl">💬</span>
             </div>
-            <h3 className="text-3xl font-black text-gray-900 mb-4">开始与 AI 顾问对话</h3>
-            <p className="text-gray-600 mb-10 max-w-md text-lg">提出您的财务问题，我会为您分析解答</p>
+            <h3 className="text-2xl font-display font-bold text-luxury-gold mb-3 tracking-wide">开始与 AI 顾问对话</h3>
+            <p className="text-luxury-brown mb-8 max-w-md tracking-wide">提出您的财务问题，我会为您分析解答</p>
 
             <div className="w-full max-w-3xl">
-              <p className="text-base font-bold text-gray-900 mb-6">试试这些问题：</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <p className="text-sm font-semibold text-luxury-darkBrown mb-4 tracking-wide uppercase">试试这些问题：</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {exampleQuestions.map((question, index) => (
                   <button
                     key={index}
                     onClick={() => handleExampleClick(question)}
-                    className="group p-6 text-left bg-white hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50 border-2 border-gray-200 hover:border-purple-400 rounded-3xl transition-all transform hover:scale-105 shadow-lg hover:shadow-2xl"
+                    className="p-5 text-left bg-white hover:bg-gradient-to-br hover:from-luxury-cream hover:to-luxury-lightGold/20 border-2 border-luxury-border hover:border-luxury-gold rounded-2xl transition-all transform hover:scale-105 shadow-luxury"
                   >
-                    <span className="text-gray-800 font-bold text-base group-hover:text-purple-700">{question}</span>
+                    <span className="text-luxury-darkBrown font-medium tracking-wide">{question}</span>
                   </button>
                 ))}
               </div>
             </div>
-          </div>
-        )}
-
-        {error && (
-          <div className="mb-4 bg-gradient-to-r from-red-50 to-rose-50 border-2 border-red-200 text-red-800 px-6 py-5 rounded-3xl flex justify-between items-center shadow-xl">
-            <div className="flex items-center space-x-3">
-              <span className="text-2xl">⚠️</span>
-              <span className="font-semibold">{error}</span>
-            </div>
-            <button
-              onClick={() => setError('')}
-              className="text-red-600 hover:text-red-800 font-bold text-2xl hover:scale-110 transition-transform"
-            >
-              ×
-            </button>
           </div>
         )}
 
@@ -273,65 +260,44 @@ const AIChat: React.FC = () => {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-3xl px-6 py-5 rounded-3xl shadow-xl ${
+              className={`max-w-[70%] px-6 py-4 rounded-2xl shadow-luxury ${
                 message.role === 'user'
-                  ? 'bg-gradient-to-br from-purple-600 to-pink-600 text-white'
-                  : 'bg-white text-gray-900 border-2 border-gray-200'
+                  ? 'bg-gradient-to-br from-luxury-gold to-luxury-darkGold text-white'
+                  : 'bg-white text-luxury-darkBrown border-2 border-luxury-border'
               }`}
             >
-              <div className="flex items-start space-x-4">
-                {message.role === 'assistant' && (
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-2 flex-shrink-0 shadow-lg">
-                    <span className="text-3xl">🤖</span>
-                  </div>
-                )}
-                <div className="flex-1">
-                  {message.role === 'user' ? (
-                    <p className="whitespace-pre-wrap break-words font-semibold text-base">{message.content}</p>
-                  ) : (
-                    <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{message.content}</ReactMarkdown>
-                    </div>
-                  )}
-                  <p
-                    className={`text-xs mt-3 font-medium ${
-                      message.role === 'user' ? 'text-purple-100' : 'text-gray-500'
-                    }`}
-                  >
-                    {message.timestamp.toLocaleTimeString()}
-                  </p>
+              {message.role === 'assistant' ? (
+                <div className="prose prose-sm max-w-none text-luxury-darkBrown">
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
                 </div>
-                {message.role === 'user' && (
-                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-2 flex-shrink-0">
-                    <span className="text-3xl">👤</span>
-                  </div>
-                )}
-              </div>
+              ) : (
+                <p className="whitespace-pre-wrap tracking-wide">{message.content}</p>
+              )}
+              <p
+                className={`text-xs mt-2 ${
+                  message.role === 'user' ? 'text-luxury-cream' : 'text-luxury-brown'
+                }`}
+              >
+                {message.timestamp.toLocaleTimeString('zh-CN', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })}
+              </p>
             </div>
           </div>
         ))}
 
-        {/* Typing indicator with streaming message */}
         {isTyping && (
           <div className="flex justify-start">
-            <div className="max-w-3xl px-6 py-5 rounded-3xl shadow-xl bg-white border-2 border-purple-200">
-              <div className="flex items-start space-x-4">
-                <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-2 flex-shrink-0 shadow-lg animate-pulse">
-                  <span className="text-3xl">🤖</span>
-                </div>
-                <div className="flex-1">
-                  {currentAIMessageRef.current ? (
-                    <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{currentAIMessageRef.current}</ReactMarkdown>
-                    </div>
-                  ) : (
-                    <span className="flex items-center space-x-2">
-                      <span className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" />
-                      <span className="w-3 h-3 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <span className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                    </span>
-                  )}
-                </div>
+            <div className="max-w-[70%] px-6 py-4 rounded-2xl shadow-luxury bg-white text-luxury-darkBrown border-2 border-luxury-border">
+              <div className="prose prose-sm max-w-none text-luxury-darkBrown">
+                <ReactMarkdown>{currentAIMessageRef.current}</ReactMarkdown>
+              </div>
+              <div className="flex items-center space-x-1 mt-2">
+                <div className="w-2 h-2 bg-luxury-gold rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="w-2 h-2 bg-luxury-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <div className="w-2 h-2 bg-luxury-gold rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
             </div>
           </div>
@@ -341,31 +307,26 @@ const AIChat: React.FC = () => {
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t-2 border-gray-200 px-8 py-6 shadow-xl">
-        <div className="flex items-end space-x-4">
+      <div className="border-t-2 border-luxury-border bg-white px-8 py-6">
+        <div className="flex space-x-4">
           <textarea
             ref={textareaRef}
             value={input}
             onChange={handleTextareaChange}
             onKeyDown={handleKeyDown}
-            placeholder="输入您的问题... (Enter 发送, Shift+Enter 换行)"
-            className="flex-1 px-6 py-4 border-2 border-purple-300 rounded-3xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:border-purple-500 resize-none bg-gradient-to-r from-purple-50 to-pink-50 text-gray-900 placeholder-gray-500 text-base font-medium shadow-lg"
+            placeholder="输入您的问题... (Shift+Enter 换行)"
+            className="flex-1 px-6 py-4 border-2 border-luxury-border rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:border-transparent text-luxury-darkBrown placeholder-luxury-brown/50 bg-luxury-cream tracking-wide"
             rows={1}
-            style={{ minHeight: '56px', maxHeight: '200px' }}
             disabled={connectionStatus !== 'connected'}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || connectionStatus !== 'connected' || isTyping}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-3xl shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 text-base"
+            className="px-8 py-4 bg-gradient-to-r from-luxury-gold to-luxury-darkGold hover:from-luxury-darkGold hover:to-luxury-gold text-white font-medium rounded-2xl shadow-luxury disabled:opacity-50 disabled:cursor-not-allowed transition-all tracking-wide uppercase"
           >
-            🚀 发送
+            发送
           </button>
         </div>
-        <p className="text-sm text-gray-500 mt-4 font-medium flex items-center space-x-2">
-          <span>💡</span>
-          <span>AI 回复基于您的交易数据分析，仅供参考</span>
-        </p>
       </div>
     </div>
   );

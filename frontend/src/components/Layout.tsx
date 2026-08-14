@@ -61,6 +61,19 @@ const Layout: React.FC = () => {
                 >
                   交易
                 </Link>
+                <Link
+                  to="/app/chat"
+                  className={`
+                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
+                    transition-all duration-300
+                    ${isActive('/app/chat')
+                      ? 'border-luxury-gold text-luxury-gold'
+                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                    }
+                  `}
+                >
+                  AI顾问
+                </Link>
               </div>
             </div>
 

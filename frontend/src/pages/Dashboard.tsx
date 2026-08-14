@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { analyticsApi } from '../api/analytics';
-import type { Summary, CategoryBreakdown, Insight } from '../api/analytics';
+import type { Summary, CategoryBreakdown } from '../api/analytics';
 import { LuxuryCard, LuxuryButton } from '../components/luxury';
 
 const Dashboard: React.FC = () => {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [categories, setCategories] = useState<CategoryBreakdown[]>([]);
-  const [insights, setInsights] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
-  const [insightsLoading, setInsightsLoading] = useState(true);
 
   useEffect(() => {
     loadData();
@@ -19,54 +17,16 @@ const Dashboard: React.FC = () => {
   const loadData = async () => {
     try {
       setLoading(true);
-      setInsightsLoading(true);
-      const [summaryData, categoryResponse, insightResponse] = await Promise.all([
+      const [summaryData, categoryResponse] = await Promise.all([
         analyticsApi.getSummary(),
         analyticsApi.getByCategory(),
-        analyticsApi.getInsights(),
       ]);
       setSummary(summaryData);
       setCategories(categoryResponse.categories);
-      setInsights(insightResponse.insights);
     } catch (error) {
       console.error('Failed to load data:', error);
     } finally {
       setLoading(false);
-      setInsightsLoading(false);
-    }
-  };
-
-  const getSeverityStyles = (severity: string) => {
-    switch (severity) {
-      case 'critical':
-        return {
-          border: 'border-l-4 border-expense',
-          bg: 'bg-gradient-to-br from-expense-light/30 via-white to-white',
-          iconBg: 'bg-gradient-to-br from-expense to-expense-dark',
-          textColor: 'text-luxury-darkBrown',
-        };
-      case 'important':
-        return {
-          border: 'border-l-4 border-luxury-gold',
-          bg: 'bg-gradient-to-br from-luxury-lightBeige/50 via-white to-white',
-          iconBg: 'bg-gradient-to-br from-luxury-gold to-luxury-darkGold',
-          textColor: 'text-luxury-darkBrown',
-        };
-      case 'warning':
-        return {
-          border: 'border-l-4 border-luxury-lightGold',
-          bg: 'bg-gradient-to-br from-luxury-cream via-white to-white',
-          iconBg: 'bg-gradient-to-br from-luxury-lightGold to-luxury-gold',
-          textColor: 'text-luxury-darkBrown',
-        };
-      case 'info':
-      default:
-        return {
-          border: 'border-l-4 border-income',
-          bg: 'bg-gradient-to-br from-income-light/30 via-white to-white',
-          iconBg: 'bg-gradient-to-br from-income to-income-dark',
-          textColor: 'text-luxury-darkBrown',
-        };
     }
   };
 
@@ -200,73 +160,6 @@ const Dashboard: React.FC = () => {
             </p>
           </div>
         </LuxuryCard>
-      </div>
-
-      {/* AI Insights Section */}
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-display text-3xl font-bold text-luxury-gold tracking-wide">AI 财务洞察</h2>
-            <p className="text-luxury-brown text-sm mt-1 tracking-wide">基于您的消费数据生成的智能建议</p>
-          </div>
-          {!insightsLoading && (
-            <button
-              onClick={loadData}
-              className="px-5 py-3 text-sm font-medium text-luxury-darkBrown bg-luxury-cream hover:bg-luxury-lightBeige rounded-md transition-all border border-luxury-border"
-            >
-              刷新洞察
-            </button>
-          )}
-        </div>
-
-        {insightsLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <LuxuryCard key={i} className="animate-pulse p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 bg-luxury-lightBeige rounded-lg"></div>
-                  <div className="flex-1 space-y-3">
-                    <div className="h-6 bg-luxury-lightBeige rounded w-3/4"></div>
-                    <div className="h-4 bg-luxury-lightBeige rounded"></div>
-                    <div className="h-4 bg-luxury-lightBeige rounded w-5/6"></div>
-                  </div>
-                </div>
-              </LuxuryCard>
-            ))}
-          </div>
-        ) : insights.length === 0 ? (
-          <LuxuryCard className="text-center py-20 bg-luxury-cream border-2 border-luxury-border">
-            <p className="text-luxury-darkBrown text-2xl font-display font-bold mb-3 tracking-wide">暂无财务洞察</p>
-            <p className="text-luxury-brown max-w-md mx-auto tracking-wide">添加更多交易记录后，AI 将为您提供个性化的财务建议和分析</p>
-          </LuxuryCard>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {insights.map((insight, index) => {
-              const styles = getSeverityStyles(insight.severity);
-              return (
-                <LuxuryCard
-                  key={index}
-                  hover
-                  className={`${styles.bg} ${styles.border} p-6`}
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className={`${styles.iconBg} rounded-lg p-4 flex-shrink-0 shadow-luxury text-white`}>
-                      <span className="text-3xl">{insight.icon}</span>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className={`text-lg font-medium ${styles.textColor} mb-2 tracking-wide`}>
-                        {insight.title}
-                      </h3>
-                      <p className="text-luxury-brown text-sm leading-relaxed">
-                        {insight.message}
-                      </p>
-                    </div>
-                  </div>
-                </LuxuryCard>
-              );
-            })}
-          </div>
-        )}
       </div>
 
       {/* Charts Section */}
