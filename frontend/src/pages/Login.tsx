@@ -27,129 +27,86 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
-         style={{
-           background: 'linear-gradient(135deg, #FAF8F3 0%, #F5F1E8 50%, #FFFFFF 100%)'
-         }}>
-
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-5"
-           style={{ backgroundColor: '#D4AF37' }} />
-      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-5"
-           style={{ backgroundColor: '#C9B591' }} />
-
-      <div className="max-w-xl w-full space-y-8 relative z-10">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-5xl font-bold mb-3 tracking-wide"
-              style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                color: '#D4AF37'
-              }}>
-            Welcome Back
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            欢迎回来
           </h1>
-          <div className="w-24 h-1 mx-auto mb-6"
-               style={{
-                 background: 'linear-gradient(to right, transparent, #D4AF37, transparent)'
-               }} />
-          <p className="text-lg tracking-wide" style={{ color: '#4A3F2E' }}>
-            登录您的专属财富管理账户
+          <p className="text-gray-600">
+            登录您的财务助手账户
           </p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-lg p-10"
-             style={{
-               border: '1px solid #E8DCC8',
-               boxShadow: '0 8px 24px rgba(212, 175, 55, 0.16)'
-             }}>
+        <div className="bg-white rounded-xl shadow-card p-8 border border-gray-100">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="px-4 py-3 rounded-md text-sm"
-                   style={{
-                     backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                     border: '1px solid #ef4444',
-                     color: '#ef4444'
-                   }}>
+              <div className="px-4 py-3 rounded-lg text-sm bg-red-50 border border-red-200 text-red-700">
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-medium mb-2"
-                     style={{ color: '#4A3F2E' }}>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 邮箱地址
               </label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-                className="w-full px-4 py-3 rounded-md transition-all duration-200 outline-none"
-                style={{
-                  backgroundColor: '#F5F1E8',
-                  border: '1px solid #E8DCC8',
-                  color: '#2C2416'
-                }}
-                onFocus={(e) => e.target.style.borderColor = '#D4AF37'}
-                onBlur={(e) => e.target.style.borderColor = '#E8DCC8'}
+                className="w-full px-4 py-3 rounded-lg transition-all duration-200 outline-none bg-gray-50 border border-gray-200 text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2"
-                     style={{ color: '#4A3F2E' }}>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 密码
               </label>
               <input
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-4 py-3 rounded-md transition-all duration-200 outline-none"
-                style={{
-                  backgroundColor: '#F5F1E8',
-                  border: '1px solid #E8DCC8',
-                  color: '#2C2416'
-                }}
-                onFocus={(e) => e.target.style.borderColor = '#D4AF37'}
-                onBlur={(e) => e.target.style.borderColor = '#E8DCC8'}
+                className="w-full px-4 py-3 rounded-lg transition-all duration-200 outline-none bg-gray-50 border border-gray-200 text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-md font-medium transition-all duration-300 relative overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)',
-                color: '#FFFFFF',
-                boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(212, 175, 55, 0.3)';
-              }}>
+              className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+            >
               {loading ? '登录中...' : '登录'}
             </button>
 
-            <div className="text-center">
-              <span style={{ color: '#8B7355' }}>或</span>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-white text-gray-500">或</span>
+              </div>
             </div>
 
             <div className="text-center">
               <Link
                 to="/register"
-                className="inline-block transition-colors duration-200"
-                style={{ color: '#D4AF37' }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#B8860B'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#D4AF37'}>
+                className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
+              >
                 还没有账户？立即注册
               </Link>
             </div>
@@ -157,8 +114,8 @@ const Login: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-sm" style={{ color: '#8B7355' }}>
-          为高净值客户提供专业财富管理服务
+        <p className="text-center text-sm text-gray-500">
+          智能财务管理，让记账更轻松
         </p>
       </div>
     </div>

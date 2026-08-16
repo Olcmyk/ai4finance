@@ -6,9 +6,16 @@
   body {
     margin: 0;
     padding: 0;
+    background-color: #F9FAFB;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   }
 
   #root {
     min-height: 100vh;
+  }
+
+  /* Enable tabular numbers for financial data */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
   }
 }

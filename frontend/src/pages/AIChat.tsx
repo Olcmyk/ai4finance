@@ -10,7 +10,6 @@ const AIChat: React.FC = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('connecting');
-  const [error, setError] = useState<string>('');
   const [sessionId] = useState(() => {
     // Try to restore session from sessionStorage, or create new
     const stored = sessionStorage.getItem('chat_session_id');

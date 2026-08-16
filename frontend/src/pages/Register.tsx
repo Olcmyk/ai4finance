@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LuxuryInput, LuxuryButton } from '../components/luxury';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -29,97 +28,108 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-luxury-cream via-luxury-lightBeige to-white flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-luxury-gold opacity-5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-luxury-beige opacity-5 rounded-full blur-3xl"></div>
-
-      <div className="max-w-xl w-full space-y-8 relative z-10">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <h1 className="font-display text-5xl font-bold text-luxury-gold mb-3 tracking-wide">
-            Join Wealth Advisor
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            创建账户
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-luxury-gold to-transparent mx-auto mb-6"></div>
-          <p className="text-luxury-darkBrown text-lg tracking-wide">
-            开启您的专属财富管理之旅
+          <p className="text-gray-600">
+            开启您的智能财务管理之旅
           </p>
         </div>
 
         {/* Register Card */}
-        <div className="bg-white border border-luxury-border rounded-lg shadow-luxury-lg p-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="bg-white rounded-xl shadow-card p-8 border border-gray-100">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-expense-light/20 border border-expense text-expense px-4 py-3 rounded-md text-sm">
+              <div className="px-4 py-3 rounded-lg text-sm bg-red-50 border border-red-200 text-red-700">
                 {error}
               </div>
             )}
 
-            <LuxuryInput
-              label="用户名"
-              id="username"
-              name="username"
-              type="text"
-              required
-              placeholder="您的姓名"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-
-            <LuxuryInput
-              label="邮箱地址"
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                用户名
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="您的姓名"
+                required
+                className="w-full px-4 py-3 rounded-lg transition-all duration-200 outline-none bg-gray-50 border border-gray-200 text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+              />
+            </div>
 
             <div>
-              <LuxuryInput
-                label="密码"
-                id="password"
-                name="password"
-                type="password"
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                邮箱地址
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
                 required
-                minLength={8}
-                placeholder="至少8个字符"
+                className="w-full px-4 py-3 rounded-lg transition-all duration-200 outline-none bg-gray-50 border border-gray-200 text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                密码
+              </label>
+              <input
+                id="password"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="至少8个字符"
+                required
+                minLength={8}
+                className="w-full px-4 py-3 rounded-lg transition-all duration-200 outline-none bg-gray-50 border border-gray-200 text-gray-900 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
               />
-              <p className="text-xs text-luxury-brown mt-1">
-                密码必须至少8个字符，包含大小写字母和数字
+              <p className="text-xs text-gray-500 mt-2">
+                密码必须至少8个字符
               </p>
             </div>
 
-            <div className="pt-4">
-              <LuxuryButton
+            <div className="pt-2">
+              <button
                 type="submit"
-                variant="primary"
-                className="w-full"
-                loading={loading}
+                disabled={loading}
+                className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
               >
                 {loading ? '注册中...' : '创建账户'}
-              </LuxuryButton>
+              </button>
             </div>
           </form>
 
-          <div className="mt-8 text-center">
+          <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-luxury-border"></div>
+                <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-luxury-brown">或</span>
+                <span className="px-4 bg-white text-gray-500">或</span>
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 text-center">
               <Link
                 to="/login"
-                className="text-luxury-gold hover:text-luxury-darkGold font-medium transition-colors duration-300"
+                className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
               >
                 已有账户？立即登录
               </Link>
@@ -128,8 +138,8 @@ const Register: React.FC = () => {
         </div>
 
         {/* Footer Text */}
-        <p className="text-center text-sm text-luxury-brown tracking-wide">
-          为高净值客户提供专业财富管理服务
+        <p className="text-center text-sm text-gray-500">
+          智能财务管理，让记账更轻松
         </p>
       </div>
     </div>

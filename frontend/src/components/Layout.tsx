@@ -17,74 +17,94 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-luxury-cream">
-      {/* Luxury Navigation Bar */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-luxury-border sticky top-0 z-50 shadow-luxury">
+    <div className="min-h-screen bg-background">
+      {/* Modern Navigation Bar */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-20">
+          <div className="flex justify-between h-16">
             {/* Logo Section */}
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="relative">
-                  <span className="text-2xl font-display font-bold text-luxury-gold tracking-wider">
-                    WEALTH ADVISOR
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <span className="text-xl font-bold text-gray-900">
+                    财务助手
                   </span>
-                  <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-luxury-gold to-luxury-lightGold"></div>
                 </div>
               </div>
 
               {/* Navigation Links */}
-              <div className="hidden sm:ml-12 sm:flex sm:space-x-8">
+              <div className="hidden sm:ml-8 sm:flex sm:space-x-4">
                 <Link
                   to="/app/dashboard"
                   className={`
-                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
-                    transition-all duration-300
+                    inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium
+                    transition-all duration-200
                     ${isActive('/app/dashboard')
-                      ? 'border-luxury-gold text-luxury-gold'
-                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }
                   `}
                 >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
                   概览
                 </Link>
                 <Link
                   to="/app/transactions"
                   className={`
-                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
-                    transition-all duration-300
+                    inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium
+                    transition-all duration-200
                     ${isActive('/app/transactions')
-                      ? 'border-luxury-gold text-luxury-gold'
-                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                      ? 'bg-primary-50 text-primary-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }
                   `}
                 >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
                   交易
                 </Link>
                 <Link
                   to="/app/chat"
                   className={`
-                    inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium tracking-wide uppercase
-                    transition-all duration-300
+                    inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium
+                    transition-all duration-200
                     ${isActive('/app/chat')
-                      ? 'border-luxury-gold text-luxury-gold'
-                      : 'border-transparent text-luxury-darkBrown hover:border-luxury-beige hover:text-luxury-gold'
+                      ? 'bg-purple-50 text-purple-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }
                   `}
                 >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                   AI顾问
                 </Link>
               </div>
             </div>
 
             {/* User Section */}
-            <div className="flex items-center space-x-6">
-              <span className="text-sm font-medium text-luxury-darkBrown tracking-wide">
-                {user?.username}
-              </span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium text-gray-700">
+                    {user?.username?.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-gray-700 hidden sm:block">
+                  {user?.username}
+                </span>
+              </div>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium text-luxury-brown hover:text-luxury-gold transition-colors duration-300 tracking-wide uppercase"
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-gray-100"
               >
                 退出
               </button>
@@ -94,14 +114,11 @@ const Layout: React.FC = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="py-12">
+      <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Outlet />
         </div>
       </main>
-
-      {/* Decorative Gold Line at Bottom */}
-      <div className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-luxury-gold to-transparent opacity-30"></div>
     </div>
   );
 };
