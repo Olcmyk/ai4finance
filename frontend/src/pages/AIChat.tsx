@@ -207,10 +207,10 @@ const AIChat: React.FC = () => {
   return (
     <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-50 to-purple-100 border-b border-gray-200 px-6 py-5 flex justify-between items-center">
+      <div className="bg-gradient-to-r from-sky-50 to-cyan-50 border-b border-gray-200 px-6 py-5 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-sky-600 to-cyan-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
@@ -234,8 +234,8 @@ const AIChat: React.FC = () => {
       <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4 bg-gray-50">
         {messages.length === 0 && !isTyping && (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-              <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 bg-gradient-to-br from-sky-100 to-cyan-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+              <svg className="w-10 h-10 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
@@ -249,7 +249,7 @@ const AIChat: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => handleExampleClick(question)}
-                    className="p-4 text-left bg-white hover:bg-purple-50 border border-gray-200 hover:border-purple-300 rounded-lg transition-all"
+                    className="p-4 text-left bg-white hover:bg-sky-50 border border-gray-200 hover:border-sky-300 rounded-lg transition-all"
                   >
                     <span className="text-gray-700 font-medium">{question}</span>
                   </button>
@@ -300,9 +300,9 @@ const AIChat: React.FC = () => {
                 <ReactMarkdown>{currentAIMessageRef.current}</ReactMarkdown>
               </div>
               <div className="flex items-center space-x-1 mt-2">
-                <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div className="w-2 h-2 bg-sky-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="w-2 h-2 bg-sky-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <div className="w-2 h-2 bg-sky-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
             </div>
           </div>
@@ -320,14 +320,14 @@ const AIChat: React.FC = () => {
             onChange={handleTextareaChange}
             onKeyDown={handleKeyDown}
             placeholder="输入您的问题... (Shift+Enter 换行)"
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 placeholder-gray-400 bg-white"
+            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900 placeholder-gray-400 bg-white"
             rows={1}
             disabled={connectionStatus !== 'connected'}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || connectionStatus !== 'connected' || isTyping}
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-6 py-3 bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             发送
           </button>

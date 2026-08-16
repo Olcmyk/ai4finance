@@ -144,7 +144,7 @@ const NewTransaction: React.FC = () => {
                   onChange={() => handleModeChange('nlp')}
                   className="hidden"
                 />
-                <div className={`flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2 ${inputMode === 'nlp' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-700 border-gray-200'}`}>
+                <div className={`flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2 ${inputMode === 'nlp' ? 'bg-gradient-to-r from-sky-600 to-cyan-600 text-white border-sky-600' : 'bg-white text-gray-700 border-gray-200'}`}>
                   <svg className={`w-5 h-5 ${inputMode === 'nlp' ? 'text-white' : 'text-gray-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -180,7 +180,7 @@ const NewTransaction: React.FC = () => {
                 <textarea
                   id="nlpText"
                   rows={4}
-                  className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
+                  className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                   placeholder="例如：今天午餐花了50块，或者收到工资5000元"
                   value={nlpText}
                   onChange={(e) => setNlpText(e.target.value)}
@@ -223,7 +223,7 @@ const NewTransaction: React.FC = () => {
                   type="button"
                   onClick={handleParse}
                   disabled={parsing || !nlpText.trim()}
-                  className="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-700 hover:to-cyan-700 text-white rounded-lg transition-colors font-medium shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {parsing ? 'AI 解析中...' : 'AI 解析'}
                 </button>

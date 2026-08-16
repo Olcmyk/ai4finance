@@ -120,26 +120,26 @@ const Dashboard: React.FC = () => {
         <div className={`rounded-xl p-4 border-2 ${
           aiInsights.type === 'warning'
             ? 'bg-amber-50 border-amber-200'
-            : 'bg-purple-50 border-purple-200'
+            : 'bg-sky-50 border-sky-200'
         }`}>
           <div className="flex items-start gap-3">
             <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
-              aiInsights.type === 'warning' ? 'bg-amber-100' : 'bg-purple-100'
+              aiInsights.type === 'warning' ? 'bg-amber-100' : 'bg-sky-100'
             }`}>
-              <svg className={`w-5 h-5 ${aiInsights.type === 'warning' ? 'text-amber-600' : 'text-purple-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-5 h-5 ${aiInsights.type === 'warning' ? 'text-amber-600' : 'text-sky-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <span className={`text-sm font-semibold ${
-                  aiInsights.type === 'warning' ? 'text-amber-900' : 'text-purple-900'
+                  aiInsights.type === 'warning' ? 'text-amber-900' : 'text-sky-900'
                 }`}>
                   AI 财务洞察
                 </span>
               </div>
               <p className={`text-sm ${
-                aiInsights.type === 'warning' ? 'text-amber-800' : 'text-purple-800'
+                aiInsights.type === 'warning' ? 'text-amber-800' : 'text-sky-800'
               }`}>
                 {aiInsights.message}
               </p>
@@ -358,16 +358,16 @@ const Dashboard: React.FC = () => {
             </Link>
             <Link
               to="/app/ai-advisor"
-              className="flex items-center p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg hover:from-purple-100 hover:to-purple-200 transition-all group border border-purple-200"
+              className="flex items-center p-4 bg-gradient-to-r from-sky-50 to-cyan-50 rounded-lg hover:from-sky-100 hover:to-cyan-100 transition-all group border border-sky-200"
             >
-              <div className="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center group-hover:bg-purple-50 transition-colors border border-purple-300">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center group-hover:bg-sky-50 transition-colors border border-sky-300">
+                <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div className="ml-4">
                 <p className="font-medium text-gray-900">AI 财务顾问</p>
-                <p className="text-purple-700 text-sm">获取智能财务建议</p>
+                <p className="text-sky-700 text-sm">获取智能财务建议</p>
               </div>
             </Link>
           </div>

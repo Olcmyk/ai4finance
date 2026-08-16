@@ -77,7 +77,7 @@ const Layout: React.FC = () => {
                     inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium
                     transition-all duration-200
                     ${isActive('/app/chat')
-                      ? 'bg-purple-50 text-purple-700'
+                      ? 'bg-sky-50 text-sky-700'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }
                   `}
