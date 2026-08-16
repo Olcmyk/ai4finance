@@ -1,14 +1,11 @@
 services:
-  # Backend FastAPI service
   - type: web
     name: formianshi-backend
     runtime: python
-    repo: https://github.com/YOUR_USERNAME/formianshi
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /api/health
     plan: free
+    buildCommand: cd backend && pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -20,6 +17,8 @@ services:
         sync: false
       - key: OPENAI_API_BASE
         value: https://api.deepseek.com
+      - key: OPENAI_MODEL
+        value: deepseek-chat
       - key: JWT_SECRET
         sync: false
       - key: FRONTEND_URL
