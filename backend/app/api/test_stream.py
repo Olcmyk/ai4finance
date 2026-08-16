@@ -14,7 +14,7 @@ async def test_stream():
         await asyncio.sleep(1)
 
 
-@router.get("/test")
+@router.get("/stream")
 async def test_stream_endpoint():
     """Test streaming endpoint"""
     return StreamingResponse(
