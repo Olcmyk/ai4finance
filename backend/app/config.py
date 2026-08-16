@@ -11,12 +11,14 @@ class Settings(BaseSettings):
     # Database
     database_url: str
 
-    # Redis
-    redis_url: str
+    # Redis - Support both traditional Redis and Upstash REST API
+    redis_url: Optional[str] = None
+    upstash_redis_rest_url: Optional[str] = None
+    upstash_redis_rest_token: Optional[str] = None
 
-    # OpenAI
+    # OpenAI / DeepSeek API
     openai_api_key: str
-    openai_base_url: Optional[str] = None
+    openai_api_base: Optional[str] = None  # For DeepSeek: https://api.deepseek.com
 
     # JWT
     jwt_secret: str
@@ -30,8 +32,8 @@ class Settings(BaseSettings):
     # Environment
     environment: str = "development"
 
-    # OpenAI Settings
-    openai_model: str = "gpt-4o-mini"
+    # OpenAI / DeepSeek Settings
+    openai_model: str = "deepseek-v4-flash"  # or gpt-4o-mini for OpenAI
     openai_temperature: float = 0.7
     openai_max_tokens: int = 1000
     openai_timeout: int = 30
