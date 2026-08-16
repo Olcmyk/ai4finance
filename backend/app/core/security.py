@@ -10,8 +10,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from app.config import settings
 
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Password hashing - using argon2 for better serverless compatibility
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 # HTTP Bearer token security
 security = HTTPBearer()

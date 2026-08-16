@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { ChatWebSocketClient } from '../api/chat';
-import type { ChatMessage, ConnectionStatus } from '../api/chat';
+import { ChatHTTPClient } from '../api/chatHttp';
+import type { ChatMessage, ConnectionStatus } from '../api/chatHttp';
 import { v4 as uuidv4 } from 'uuid';
 
 const AIChat: React.FC = () => {
@@ -16,7 +16,7 @@ const AIChat: React.FC = () => {
     return stored || uuidv4();
   });
 
-  const chatClientRef = useRef<ChatWebSocketClient | null>(null);
+  const chatClientRef = useRef<ChatHTTPClient | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const currentAIMessageRef = useRef<string>(''); // Use ref to avoid stale closure
@@ -30,7 +30,7 @@ const AIChat: React.FC = () => {
     '我在哪些类别花费最多？',
   ];
 
-  // Initialize WebSocket connection
+  // Initialize HTTP client
   useEffect(() => {
     // Check if user is authenticated
     const token = localStorage.getItem('accessToken');
@@ -42,12 +42,15 @@ const AIChat: React.FC = () => {
     // Save session ID
     sessionStorage.setItem('chat_session_id', sessionId);
 
-    const client = new ChatWebSocketClient(sessionId);
+    const client = new ChatHTTPClient(sessionId);
     chatClientRef.current = client;
 
     // Set up message handler
     client.onMessage((message) => {
-      if (message.type === 'chunk' && message.content) {
+      if (message.type === 'session' && message.session_id) {
+        // Update session ID if server provides one
+        sessionStorage.setItem('chat_session_id', message.session_id);
+      } else if (message.type === 'chunk' && message.content) {
         currentAIMessageRef.current += message.content;
         setIsTyping(true);
         // Force re-render to show streaming text
@@ -93,15 +96,12 @@ const AIChat: React.FC = () => {
       }
     });
 
-    // Connect
-    client.connect();
+    // Set initial status as connected (no persistent connection needed)
+    setConnectionStatus('connected');
 
     // Cleanup on unmount
     return () => {
-      // Cancel callbacks before disconnect to avoid state updates after unmount
-      client.onMessage(() => {});
-      client.onStatusChange(() => {});
-      client.disconnect();
+      client.cancel();
     };
   }, [sessionId, navigate]);
 
@@ -111,7 +111,7 @@ const AIChat: React.FC = () => {
   }, [messages, isTyping]);
 
   const handleSend = async () => {
-    if (!input.trim() || !chatClientRef.current || connectionStatus !== 'connected') {
+    if (!input.trim() || !chatClientRef.current || isTyping) {
       return;
     }
 
@@ -132,9 +132,9 @@ const AIChat: React.FC = () => {
       textareaRef.current.style.height = 'auto';
     }
 
-    // Send message via WebSocket
+    // Send message via HTTP streaming
     try {
-      chatClientRef.current.sendMessage(messageToSend);
+      await chatClientRef.current.sendMessage(messageToSend);
     } catch (err) {
       console.error('Failed to send message:', err);
       setMessages((prev) => [
@@ -167,7 +167,8 @@ const AIChat: React.FC = () => {
   };
 
   const handleReconnect = () => {
-    chatClientRef.current?.connect();
+    // For HTTP client, just reset status
+    setConnectionStatus('connected');
   };
 
   // Auto-resize textarea
@@ -181,8 +182,8 @@ const AIChat: React.FC = () => {
   const StatusIndicator = () => {
     const statusConfig = {
       connected: { color: 'bg-success-500', text: '已连接' },
-      connecting: { color: 'bg-yellow-500', text: '连接中...' },
-      disconnected: { color: 'bg-gray-500', text: '已断开' },
+      connecting: { color: 'bg-yellow-500', text: '处理中...' },
+      disconnected: { color: 'bg-gray-500', text: '就绪' },
       error: { color: 'bg-red-500', text: '连接错误' },
     };
 
@@ -190,14 +191,14 @@ const AIChat: React.FC = () => {
 
     return (
       <div className="flex items-center space-x-2">
-        <div className={`w-2 h-2 rounded-full ${config.color} animate-pulse`} />
+        <div className={`w-2 h-2 rounded-full ${config.color} ${connectionStatus === 'connecting' ? 'animate-pulse' : ''}`} />
         <span className="text-xs text-gray-600">{config.text}</span>
-        {(connectionStatus === 'disconnected' || connectionStatus === 'error') && (
+        {connectionStatus === 'error' && (
           <button
             onClick={handleReconnect}
             className="text-xs text-primary-600 hover:text-primary-700 underline"
           >
-            重新连接
+            重试
           </button>
         )}
       </div>

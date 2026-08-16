@@ -21,7 +21,7 @@ class UserService:
             username=user_data.username
         )
         self.db.add(user)
-        await self.db.flush()
+        await self.db.commit()
         await self.db.refresh(user)
         return user
 
