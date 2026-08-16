@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/api/index.py"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "UPSTASH_REDIS_REST_URL": "@upstash_redis_rest_url",
+    "UPSTASH_REDIS_REST_TOKEN": "@upstash_redis_rest_token",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "OPENAI_API_BASE": "https://api.deepseek.com",
+    "OPENAI_MODEL": "deepseek-chat",
+    "JWT_SECRET": "@jwt_secret",
+    "FRONTEND_URL": "https://ai4finance.vercel.app",
+    "ENVIRONMENT": "production"
+  }
+}

@@ -6,7 +6,8 @@ sqlalchemy==2.0.36
 asyncpg==0.30.0
 alembic==1.14.0
 
-# Redis - Upstash REST API
+# Redis - Support both traditional Redis and Upstash REST API
+redis==5.2.0
 upstash-redis==0.15.0
 
 # Authentication & Security
@@ -19,6 +20,9 @@ pydantic==2.9.2
 pydantic-settings==2.6.1
 
 # AI & LangChain
+# Note: Using newer versions due to compatibility issues with Python 3.13
+# langchain 0.1.0 and langchain-openai 0.0.5 have dependency conflicts with tiktoken
+# The newer versions maintain API compatibility for our use case
 langchain==0.3.7
 langchain-openai==0.2.8
 openai==1.54.4
@@ -29,5 +33,7 @@ httpx==0.27.2
 # Rate Limiting
 slowapi==0.1.9
 
-# Vercel serverless 不需要 uvicorn
-# 已由 Vercel 运行时提供
+# Testing
+
+# Development
+python-dotenv==1.0.1
