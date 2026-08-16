@@ -65,3 +65,18 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Claude and dev tools
+.claude/
+.superpowers/
+.playwright-mcp/
+
+# Screenshots and reports
+*.png
+*.jpg
+*.jpeg
+*报告*.md
+*REPORT*.md
+*UI_*.md
+*REDESIGN*.md
+*LUXURY*.md
