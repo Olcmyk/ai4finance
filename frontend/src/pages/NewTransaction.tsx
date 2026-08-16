@@ -144,11 +144,11 @@ const NewTransaction: React.FC = () => {
                   onChange={() => handleModeChange('nlp')}
                   className="hidden"
                 />
-                <div className={`${inputMode === 'nlp' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-700 border-gray-200'} flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2`}>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className={`flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2 ${inputMode === 'nlp' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-700 border-gray-200'}`}>
+                  <svg className={`w-5 h-5 ${inputMode === 'nlp' ? 'text-white' : 'text-gray-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span className="font-medium">AI 智能输入</span>
+                  <span className={`font-medium ${inputMode === 'nlp' ? 'text-white' : 'text-gray-700'}`}>AI 智能输入</span>
                 </div>
               </label>
               <label className="flex-1 cursor-pointer">
@@ -160,11 +160,11 @@ const NewTransaction: React.FC = () => {
                   onChange={() => handleModeChange('manual')}
                   className="hidden"
                 />
-                <div className={`${inputMode === 'manual' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'} flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2`}>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className={`flex items-center justify-center space-x-2 p-4 rounded-lg transition-all duration-200 border-2 ${inputMode === 'manual' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'}`}>
+                  <svg className={`w-5 h-5 ${inputMode === 'manual' ? 'text-white' : 'text-gray-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
-                  <span className="font-medium">手动输入</span>
+                  <span className={`font-medium ${inputMode === 'manual' ? 'text-white' : 'text-gray-700'}`}>手动输入</span>
                 </div>
               </label>
             </div>
@@ -257,11 +257,11 @@ const NewTransaction: React.FC = () => {
                       onChange={(e) => setTransactionType(e.target.value as 'expense')}
                       className="hidden"
                     />
-                    <div className={`${transactionType === 'expense' ? 'bg-red-600 text-white border-red-600' : 'bg-white text-gray-700 border-gray-200'} flex items-center justify-center space-x-2 p-3 rounded-lg transition-all duration-200 border-2`}>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`flex items-center justify-center space-x-2 p-3 rounded-lg transition-all duration-200 border-2 ${transactionType === 'expense' ? 'bg-red-600 text-white border-red-600' : 'bg-white text-gray-700 border-gray-200'}`}>
+                      <svg className={`w-5 h-5 ${transactionType === 'expense' ? 'text-white' : 'text-gray-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                       </svg>
-                      <span className="font-medium">支出</span>
+                      <span className={`font-medium ${transactionType === 'expense' ? 'text-white' : 'text-gray-700'}`}>支出</span>
                     </div>
                   </label>
                   <label className="flex-1 cursor-pointer">
@@ -273,11 +273,11 @@ const NewTransaction: React.FC = () => {
                       onChange={(e) => setTransactionType(e.target.value as 'income')}
                       className="hidden"
                     />
-                    <div className={`${transactionType === 'income' ? 'bg-success-600 text-white border-success-600' : 'bg-white text-gray-700 border-gray-200'} flex items-center justify-center space-x-2 p-3 rounded-lg transition-all duration-200 border-2`}>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className={`flex items-center justify-center space-x-2 p-3 rounded-lg transition-all duration-200 border-2 ${transactionType === 'income' ? 'bg-success-600 text-white border-success-600' : 'bg-white text-gray-700 border-gray-200'}`}>
+                      <svg className={`w-5 h-5 ${transactionType === 'income' ? 'text-white' : 'text-gray-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                       </svg>
-                      <span className="font-medium">收入</span>
+                      <span className={`font-medium ${transactionType === 'income' ? 'text-white' : 'text-gray-700'}`}>收入</span>
                     </div>
                   </label>
                 </div>
