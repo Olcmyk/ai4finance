@@ -33,8 +33,8 @@ class LangChainService:
         }
 
         # Add base_url if configured (for DeepSeek or other providers)
-        if settings.openai_api_base:
-            llm_kwargs["base_url"] = settings.openai_api_base
+        if settings.openai_base_url:
+            llm_kwargs["base_url"] = settings.openai_base_url
 
         self.llm = ChatOpenAI(**llm_kwargs)
 
