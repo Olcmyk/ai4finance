@@ -29,5 +29,8 @@ httpx==0.27.2
 # Rate Limiting
 slowapi==0.1.9
 
+# Vercel ASGI adapter
+mangum==0.17.0
+
 # Vercel serverless 不需要 uvicorn
 # 已由 Vercel 运行时提供
