@@ -18,7 +18,7 @@ class Settings(BaseSettings):
 
     # OpenAI / DeepSeek API
     openai_api_key: str
-    openai_api_base: Optional[str] = None  # For DeepSeek: https://api.deepseek.com
+    openai_base_url: Optional[str] = None  # For DeepSeek: https://api.deepseek.com
 
     # JWT
     jwt_secret: str
