@@ -81,3 +81,13 @@ dmypy.json
 *REDESIGN*.md
 *LUXURY*.md
 .vercel
+
+# Deployment documentation with secrets
+DEPLOYMENT_*.md
+DEPLOY_TO_VERCEL.md
+deployment-info.md
+test-deployment.sh
+monitor-deployment.sh
+deploy-frontend.sh
+test-final.sh
+DIAGNOSTIC_REPORT.md
