@@ -45,8 +45,7 @@ formianshi/
 
 ## 部署
 
-- 前端: https://frontend-swart-five-7mc75xh12x.vercel.app
-- 后端: https://ai4finance-backend.vercel.app
+https://ai4finance.vercel.app
 
 ## 本地开发
 
