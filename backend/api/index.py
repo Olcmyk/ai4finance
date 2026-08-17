@@ -21,6 +21,9 @@ app.add_middleware(
     allow_origins=[
         "https://ai4finance.vercel.app",
         "https://formianshi.vercel.app",
+        "https://financial-app.vercel.app",
+        "https://www.ai4finance.online",
+        "https://ai4finance.online",
         "http://localhost:5174",
         "http://localhost:5173"
     ],
