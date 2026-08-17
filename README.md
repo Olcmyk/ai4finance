@@ -42,11 +42,6 @@ formianshi/
 │   └── vercel.json
 └── README.md
 ```
-
-## 部署
-
-https://ai4finance.vercel.app
-
 ## 本地开发
 
 ### 后端
